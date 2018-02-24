@@ -1,0 +1,38 @@
+<mat-card class="example-card">
+<form class="example-form">
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Full Name" type="text" [(ngModel)]="clientdetails.fullname" name="fullname">
+    </mat-form-field></td>
+  </tr></table>
+
+  <p>
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="Address" [(ngModel)]="clientdetails.address" name="address"></textarea>
+    </mat-form-field>
+  </p>
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Contact no." type="text" [(ngModel)]="clientdetails.contactNo" name="contactNo">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+  <mat-select placeholder="Sex" [(ngModel)]="clientdetails.sex" name="sex">
+    <mat-option *ngFor="let s of sex" [value]="s.value" >
+      {{ s.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+  <mat-select placeholder="Age" [(ngModel)]="clientdetails.ageRange" name="ageRange">
+    <mat-option *ngFor="let age of ageRange" [value]="age.value" >
+      {{ age.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field></td>
+  </tr></table>
+</form>
+<button mat-button (click)="submitClient()">Submit</button>
+</mat-card>
+

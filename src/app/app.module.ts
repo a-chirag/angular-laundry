@@ -25,6 +25,7 @@ import { ClientsComponent } from './clients/clients.component';
 import { AddOrderComponent } from './add-order/add-order.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
+import { AddClientComponent } from './add-client/add-client.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import {MatSelectModule} from '@angular/material/select';
     OrdersComponent,
     OrderDetailsComponent,
     ClientsComponent,
-    AddOrderComponent
+    AddOrderComponent,
+    AddClientComponent
   ],
   imports: [
     BrowserModule,
