@@ -1,0 +1,54 @@
+
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{order.clientName}}</mat-card-title>
+    <mat-card-subtitle>{{order.contactNo}}</mat-card-subtitle>
+    <span class="example-spacer"></span>
+    <mat-chip-list>
+    <mat-chip [class.status]="order.deliveryStatus === 0" color="warm" selected="true">Processing</mat-chip>
+    <mat-chip [class.status]="order.deliveryStatus === 1" color="warm" selected="true">Delivery</mat-chip>
+    <mat-chip [class.status]="order.deliveryStatus === 2" color="warm" selected="true">Completed</mat-chip>
+    </mat-chip-list>
+  </mat-card-header>
+  <mat-card-content>
+    Expected Delivery: {{order.expectedDeliveryDate}}
+    <div class="example-container mat-elevation-z8 col-1-2">
+<mat-table #table [dataSource]="dataSource" matSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="clothName">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Cloth </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.clothName}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header> Amount </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.amount}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="quantity">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.quantity}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="orderType">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> ordertype </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.orderType}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+  </div>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>EDIT</button>
+  </mat-card-actions>
+</mat-card>

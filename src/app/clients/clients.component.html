@@ -1,0 +1,49 @@
+<h2>Clients</h2>
+<div class="example-container mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+<mat-table #table [dataSource]="dataSource" matSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="clientId">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Id. </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.clientId}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="fullname">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header> clientname </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.fullname}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="contactNo">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Contact No </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.contactNo}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="sex">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Sex </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.sex}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="address">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.address}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="/clients/{{row.fullname}}"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+  </div>
