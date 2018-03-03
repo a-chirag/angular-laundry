@@ -1,6 +1,7 @@
 import { AddClient } from './addclient';
 import { Client } from './client';
 import { Cloth } from './cloth';
+import { Company } from './company';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
@@ -21,6 +22,9 @@ getClient (id: string): Observable<Client> {
 }
   getCloth (id: string): Observable<Cloth> {
   return this.http.get<Cloth>(this.clothesUrl + '/' + id);
+}
+  getCompany (): Observable<Company> {
+  return this.http.get<Company>('/api/settings');
 }
 getClothes(): Observable<Cloth[]> {
   return this.http.get<Cloth[]>('/api/clothes/all');
@@ -48,6 +52,9 @@ getClothes(): Observable<Cloth[]> {
   }
   putCloth(cloth: Cloth): Observable<Cloth> {
     return this.http.put<Cloth>(this.clothesUrl, cloth);
+  }
+  putCompany(company: Company): Observable<Company> {
+    return this.http.put<Company>('/api/settings', company);
   }
 }
 

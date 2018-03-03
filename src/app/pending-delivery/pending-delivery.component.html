@@ -1,0 +1,56 @@
+<h2>Orders</h2>
+<div class="example-container mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+<mat-table #table [dataSource]="dataSource" matSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Id. </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="clientname">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header> clientname </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.clientName}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="submissionDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> submissionDate </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.submissionDate}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="expectedDeliveryDate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> expectedDeliveryDate </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.expectedDeliveryDate}} </mat-cell>
+    </ng-container>
+     <ng-container matColumnDef="totalQuantity">
+      <mat-header-cell *matHeaderCellDef> totalQuantity </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.totalQuantity}} </mat-cell>
+    </ng-container>
+     <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef> amount </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.amount}} </mat-cell>
+    </ng-container>
+     <ng-container matColumnDef="deliveryStatus">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> deliveryStatus </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{types[order.deliveryStatus].viewValue}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="/orders/{{row.id}}"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+  </div>

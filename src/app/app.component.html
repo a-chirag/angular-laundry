@@ -7,9 +7,14 @@
 </button>
 <button mat-button [matMenuTriggerFor]="clothes">Clothes
 </button>
+<button mat-button routerLink="/settings">Company
+</button>
 <mat-menu #order="matMenu">
   <button mat-menu-item routerLink="/addOrder"> Add Order </button>
-  <button mat-menu-item routerLink="/orders"> All Order </button>
+  <button mat-menu-item routerLink="/orders"> All Orders </button>
+  <button mat-menu-item routerLink="/pendingOrders"> Pending Orders </button>
+  <button mat-menu-item routerLink="/pendingDelivery"> Pending Delivery </button>
+  
 </mat-menu>
 <mat-menu #clients="matMenu">
   <button mat-menu-item routerLink="/addClient"> Add Client </button>

@@ -33,6 +33,9 @@ import { ClientsDetailsComponent } from './clients-details/clients-details.compo
 import { AddClothComponent } from './add-cloth/add-cloth.component';
 import { ClothesComponent } from './clothes/clothes.component';
 import { ClothesDetailsComponent } from './clothes-details/clothes-details.component';
+import { CompanyComponent } from './company/company.component';
+import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
+import { PendingDeliveryComponent } from './pending-delivery/pending-delivery.component';
 
 
 @NgModule({
@@ -46,7 +49,10 @@ import { ClothesDetailsComponent } from './clothes-details/clothes-details.compo
     ClientsDetailsComponent,
     AddClothComponent,
     ClothesComponent,
-    ClothesDetailsComponent
+    ClothesDetailsComponent,
+    CompanyComponent,
+    PendingOrdersComponent,
+    PendingDeliveryComponent
   ],
   imports: [
     BrowserModule,
