@@ -31,6 +31,8 @@ import { AddClientComponent } from './add-client/add-client.component';
 import { AgmCoreModule } from '@agm/core';
 import { ClientsDetailsComponent } from './clients-details/clients-details.component';
 import { AddClothComponent } from './add-cloth/add-cloth.component';
+import { ClothesComponent } from './clothes/clothes.component';
+import { ClothesDetailsComponent } from './clothes-details/clothes-details.component';
 
 
 @NgModule({
@@ -42,7 +44,9 @@ import { AddClothComponent } from './add-cloth/add-cloth.component';
     AddOrderComponent,
     AddClientComponent,
     ClientsDetailsComponent,
-    AddClothComponent
+    AddClothComponent,
+    ClothesComponent,
+    ClothesDetailsComponent
   ],
   imports: [
     BrowserModule,

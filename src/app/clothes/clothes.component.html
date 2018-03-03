@@ -1,0 +1,53 @@
+<h2>Clothes</h2>
+<div class="example-container mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+  </div>
+<mat-table #table [dataSource]="dataSource" matSort>
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Id. </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="categoryId">
+      <mat-header-cell *matHeaderCellDef  mat-sort-header> Category </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{category[order.categoryId-1].viewValue}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="drycleanRate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Dry Cleaning </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.drycleanRate}} </mat-cell>
+    </ng-container>
+    
+    <ng-container matColumnDef="ironingRate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Ironing </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.ironingRate}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="laundryRate">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Polishing </mat-header-cell>
+      <mat-cell *matCellDef="let order"> {{order.laundryRate}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="/clothes/{{row.id}}"></mat-row>
+  </mat-table>
+  <mat-paginator #paginator
+                 [pageSize]="10"
+                 [pageSizeOptions]="[5, 10, 20]">
+  </mat-paginator>
+  </div>
