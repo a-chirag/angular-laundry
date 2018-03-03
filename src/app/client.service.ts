@@ -1,3 +1,4 @@
+import { AddClient } from './addclient';
 import { Client } from './client';
 import { Cloth } from './cloth';
 import { Injectable } from '@angular/core';
@@ -22,6 +23,18 @@ getClothes(): Observable<Cloth[]> {
 }
   postOrder(order: OrderAdd): Observable<Order> {
     return this.http.post<Order>('/api/jobs', order);
+  }
+  postClient(client: Client): Observable<Client> {
+    return this.http.post<Client>(this.clientUrl + '/', client);
+  }
+  postAddClient(addclient: AddClient): Observable<AddClient> {
+    return this.http.post<AddClient>(this.clientUrl + '/', addclient);
+  }
+  getClientId (): Observable<number> {
+  return this.http.get<number>(this.clientUrl + '/nextId' );
+}
+  putClient(client: Client): Observable<Client> {
+    return this.http.put<Client>(this.clientUrl, client);
   }
 }
 

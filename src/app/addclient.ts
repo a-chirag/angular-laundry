@@ -1,13 +1,10 @@
-import { Order } from './order';
-export class Client {
+export class AddClient {
   clientId: number;
-  count: number;
   fullname: string;
   contactNo: string;
   sex: string;
   regDate: Date;
-  ageRange: string;
-  jobOrders: Order;
+  ageRange: number;
   address: string;
   lat: number;
   lng: number;

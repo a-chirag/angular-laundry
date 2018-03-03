@@ -3,7 +3,7 @@
     <input matInput placeholder="Client Phone Number" [(ngModel)]="contactNo" name="contactNo">
     
   </mat-form-field>
-  <button mat-button (click)=getClient()>Search</button>
+  <button mat-button (click)= getClient()>Search</button>
 </mat-card>
 <div *ngIf="client">
 <mat-card class="example-card">

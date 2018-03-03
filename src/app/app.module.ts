@@ -27,6 +27,10 @@ import { QzTrayService } from './qz-tray.service';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
 import {AngularPrint} from 'angular-print';
+import { AddClientComponent } from './add-client/add-client.component';
+import { AgmCoreModule } from '@agm/core';
+import { ClientsDetailsComponent } from './clients-details/clients-details.component';
+import { AddClothComponent } from './add-cloth/add-cloth.component';
 
 
 @NgModule({
@@ -35,7 +39,10 @@ import {AngularPrint} from 'angular-print';
     OrdersComponent,
     OrderDetailsComponent,
     ClientsComponent,
-    AddOrderComponent
+    AddOrderComponent,
+    AddClientComponent,
+    ClientsDetailsComponent,
+    AddClothComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +64,11 @@ import {AngularPrint} from 'angular-print';
     MatNativeDateModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAee0YfNLsIlYLK1Z1iUmwt5L-SK9Mu7Y4',
+      libraries: ['places']
+    })
   ],
   exports: [
     MatAutocompleteModule
