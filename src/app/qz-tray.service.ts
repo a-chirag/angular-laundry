@@ -118,8 +118,7 @@ export class QzTrayService {
     data.push({ type: 'raw', data: '\n\n\n\n\n\n\n', options: { language: 'ESCPOS', dotDensity: 'single' }  })
     console.log(data);
     return Observable.fromPromise(qz.print(this.config, data))
-      .map((anything: any) => anything)
-      .catch(this.errorHandler);
+      .map((anything: any) => anything);
 }
   errorHandler(error: any): Observable<any> {
     return Observable.throw(error);
