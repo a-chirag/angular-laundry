@@ -1,3 +1,32 @@
-<p>
-  clothes-details works!
-</p>
+<mat-card class="example-card">
+<form class="example-form">
+<table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Category" type="text" name="category" value={{category[cloth.categoryId].viewValue}} readonly="readonly">
+    </mat-form-field></td>
+  </tr></table>
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Name" type="text" [(ngModel)]="cloth.name" name="name" readonly="readonly">
+    </mat-form-field></td>
+  </tr></table>
+  
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="DryClean Rate" type="number" [(ngModel)]="cloth.drycleanRate" name="drycleanRate">
+    </mat-form-field></td>
+ 
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Ironing Rate" type="number" [(ngModel)]="cloth.ironingRate" name="ironingRate">
+    </mat-form-field></td>
+  
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Polish Rate" type="number" [(ngModel)]="cloth.laundryRate" name="laundryRate">
+    </mat-form-field></td>
+  </tr></table>
+ 
+</form>
+<button mat-button (click)="updateCloth()">Update</button>
+</mat-card>
+

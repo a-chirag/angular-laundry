@@ -1,4 +1,5 @@
 export class Cloth {
+  id: number;
   name: string;
   categoryId: number;
   laundryRate: number;

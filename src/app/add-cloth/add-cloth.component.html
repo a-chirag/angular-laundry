@@ -1,3 +1,36 @@
-<p>
-  add-cloth works!
-</p>
+<mat-card class="example-card">
+<form class="example-form">
+<table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+  <mat-select placeholder="Category" [(ngModel)]="clothDetails.categoryId" name="categoryId">
+    <mat-option *ngFor="let c of category" [value]="c.value" >
+      {{ c.viewValue }}
+    </mat-option>
+  </mat-select>
+</mat-form-field></td>
+  </tr></table>
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Name" type="text" [(ngModel)]="clothDetails.name" name="name">
+    </mat-form-field></td>
+  </tr></table>
+  
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="DryClean Rate" type="number" [(ngModel)]="clothDetails.drycleanRate" name="drycleanRate">
+    </mat-form-field></td>
+ 
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Ironing Rate" type="number" [(ngModel)]="clothDetails.ironingRate" name="ironingRate">
+    </mat-form-field></td>
+  
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Polish Rate" type="number" [(ngModel)]="clothDetails.laundryRate" name="laundryRate">
+    </mat-form-field></td>
+  </tr></table>
+ 
+</form>
+<button mat-button (click)="submitCloth()">Submit</button>
+</mat-card>
+
