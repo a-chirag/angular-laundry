@@ -5,10 +5,10 @@ export class Client {
   fullname: string;
   contactNo: string;
   sex: string;
-  regDate: string;
+  regDate: Date;
   ageRange: string;
   jobOrders: Order;
   address: string;
   lat: number;
-  long: number;
+  lng: number;
 }

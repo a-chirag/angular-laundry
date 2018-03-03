@@ -1,0 +1,42 @@
+<mat-card class="example-card" *ngIf="client">
+<form class="example-form">
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Full Name" type="text" [(ngModel)]="client.fullname" name="fullname" value="client.fullname" readonly="readonly">
+    </mat-form-field></td>
+  </tr></table>
+
+  <p>
+    <mat-form-field class="example-full-width">
+      <textarea matInput placeholder="Address" [(ngModel)]="client.address" name="address" value="client.address"></textarea>
+    </mat-form-field>
+      </p>
+ 
+      <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search [formControl]="searchControl">
+    </mat-form-field></td>
+  </tr><tr><td>
+    <agm-map [latitude]="client.lat" [longitude]="client.lng" [scrollwheel]="false" [zoom]="zoom" [mapTypeControl]="true" [fullscreenControl]="true" (mapClick)="placeMarker($event)">
+  <agm-marker [latitude]="client.lat" [longitude]="client.lng"></agm-marker>
+</agm-map>
+</td>
+</tr>
+</table>
+
+  <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Contact no." type="text" [(ngModel)]="client.contactNo" name="contactNo">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Sex" type="text" name="sex" value={{sex[client.sex].viewValue}} readonly="readonly">
+    </mat-form-field></td>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Age" type="text" name="age" value={{ageRange[client.ageRange].viewValue}} readonly="readonly">
+    </mat-form-field></td>
+  </tr></table>
+</form>
+<button mat-button (click)="updateClient()">Update</button>
+</mat-card>
+

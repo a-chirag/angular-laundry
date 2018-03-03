@@ -7,5 +7,5 @@ export class AddClient {
   ageRange: number;
   address: string;
   lat: number;
-  long: number;
+  lng: number;
 }

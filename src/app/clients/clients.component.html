@@ -31,7 +31,7 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="sex">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Sex </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.sex}} </mat-cell>
+      <mat-cell *matCellDef="let order"> {{sex[order.sex].viewValue}} </mat-cell>
     </ng-container>
     
     <ng-container matColumnDef="address">
@@ -40,7 +40,7 @@
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="/clients/{{row.fullname}}"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="/clients/{{row.contactNo}}"></mat-row>
   </mat-table>
   <mat-paginator #paginator
                  [pageSize]="10"

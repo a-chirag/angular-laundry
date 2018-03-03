@@ -33,5 +33,8 @@ getClothes(): Observable<Cloth[]> {
   getClientId (): Observable<number> {
   return this.http.get<number>(this.clientUrl + '/nextId' );
 }
+  putClient(client: Client): Observable<Client> {
+    return this.http.put<Client>(this.clientUrl, client);
+  }
 }
 

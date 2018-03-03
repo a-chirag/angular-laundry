@@ -26,6 +26,9 @@ import { AddOrderComponent } from './add-order/add-order.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
 import { AddClientComponent } from './add-client/add-client.component';
+import { AgmCoreModule } from '@agm/core';
+import { ClientsDetailsComponent } from './clients-details/clients-details.component';
+import { AddClothComponent } from './add-cloth/add-cloth.component';
 
 
 @NgModule({
@@ -35,7 +38,9 @@ import { AddClientComponent } from './add-client/add-client.component';
     OrderDetailsComponent,
     ClientsComponent,
     AddOrderComponent,
-    AddClientComponent
+    AddClientComponent,
+    ClientsDetailsComponent,
+    AddClothComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +62,11 @@ import { AddClientComponent } from './add-client/add-client.component';
     MatNativeDateModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAee0YfNLsIlYLK1Z1iUmwt5L-SK9Mu7Y4',
+      libraries: ['places']
+    })
   ],
   exports: [
     MatAutocompleteModule

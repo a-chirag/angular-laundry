@@ -11,7 +11,19 @@
     <mat-form-field class="example-full-width">
       <textarea matInput placeholder="Address" [(ngModel)]="clientdetails.address" name="address"></textarea>
     </mat-form-field>
-  </p>
+      </p>
+ 
+      <table class="example-full-width" cellspacing="0"><tr>
+    <td><mat-form-field class="example-full-width">
+      <input matInput placeholder="Search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search [formControl]="searchControl">
+    </mat-form-field></td>
+  </tr><tr><td>
+    <agm-map [latitude]="clientdetails.lat" [longitude]="clientdetails.lng" [scrollwheel]="false" [zoom]="zoom" [mapTypeControl]="true" [fullscreenControl]="true" (mapClick)="placeMarker($event)">
+  <agm-marker [latitude]="clientdetails.lat" [longitude]="clientdetails.lng"></agm-marker>
+</agm-map>
+</td>
+</tr>
+</table>
 
   <table class="example-full-width" cellspacing="0"><tr>
     <td><mat-form-field class="example-full-width">

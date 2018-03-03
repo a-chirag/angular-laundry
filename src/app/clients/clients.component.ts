@@ -10,6 +10,10 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
   styleUrls: ['./clients.component.css']
 })
 export class ClientsComponent implements OnInit, AfterViewInit {
+  sex = [
+    {value: '0', viewValue: 'Male'},
+    {value: '1', viewValue: 'Female'}
+  ];
 displayedColumns = ['clientId',
     'fullname',
 'contactNo',

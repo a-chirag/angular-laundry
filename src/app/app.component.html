@@ -5,6 +5,8 @@
 </button>
 <button mat-button [matMenuTriggerFor]="clients">Clients
 </button>
+<button mat-button [matMenuTriggerFor]="clothes">Clothes
+</button>
 <mat-menu #order="matMenu">
   <button mat-menu-item routerLink="/addOrder"> Add Order </button>
   <button mat-menu-item routerLink="/orders"> All Order </button>
@@ -12,6 +14,10 @@
 <mat-menu #clients="matMenu">
   <button mat-menu-item routerLink="/addClient"> Add Client </button>
   <button mat-menu-item routerLink="/clients"> All Clients </button>
+</mat-menu>
+<mat-menu #clothes="matMenu">
+  <button mat-menu-item routerLink="/addCloth"> Add Cloth </button>
+  <button mat-menu-item routerLink="/clothes"> All Clothes </button>
 </mat-menu>
 </mat-toolbar>
 <router-outlet></router-outlet>
