@@ -3,8 +3,8 @@ import { OrderDetails } from './orderdetails';
 import { status } from './status';
 export class Order {
 id: string;
-submissionDate: string;
-expectedDeliveryDate: string;
+submissionDate: Date;
+expectedDeliveryDate: Date;
 totalQuantity: number;
 amount: number;
 deliveryStatus: status;
@@ -15,4 +15,6 @@ deliveryStatus: status;
   regDate: string;
   ageRange: string;
   orderDetails: OrderDetails[];
+  tax: number;
+  total: number;
 }

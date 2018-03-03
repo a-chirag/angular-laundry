@@ -14,5 +14,7 @@ private ordersUrl = 'api/jobs';
 getOrder (id: string): Observable<Order> {
   return this.http.get<Order>(this.ordersUrl + '/' + id);
 }
-
+changeStatus(status: number, id: string): Observable<Order> {
+ return this.http.put<Order>(this.ordersUrl + '/' + id, status);
+}
 }

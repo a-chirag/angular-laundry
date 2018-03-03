@@ -1,14 +1,15 @@
 
-<mat-card class="example-card">
+<mat-card class="example-card" id = "bill" *ngIf="order">
   <mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{order.clientName}}</mat-card-title>
     <mat-card-subtitle>{{order.contactNo}}</mat-card-subtitle>
     <span class="example-spacer"></span>
     <mat-chip-list>
-    <mat-chip [class.status]="order.deliveryStatus === 0" color="warm" selected="true">Processing</mat-chip>
-    <mat-chip [class.status]="order.deliveryStatus === 1" color="warm" selected="true">Delivery</mat-chip>
-    <mat-chip [class.status]="order.deliveryStatus === 2" color="warm" selected="true">Completed</mat-chip>
+    <mat-chip [class.status]="order.deliveryStatus === 0" color="warm" selected="true" (click)="changeStatus(0)">Processing</mat-chip>
+    <mat-chip [class.status]="order.deliveryStatus === 1" color="warm" selected="true" (click)="changeStatus(1)">Delivery</mat-chip>
+    <mat-chip [class.status]="order.deliveryStatus === 2" color="warm" selected="true" (click)="changeStatus(2)">Completed</mat-chip>
+    <mat-chip [class.status]="true" color="warm" selected="true" (click)="print()">Completed</mat-chip>
     </mat-chip-list>
   </mat-card-header>
   <mat-card-content>
@@ -40,7 +41,7 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="orderType">
       <mat-header-cell *matHeaderCellDef mat-sort-header> ordertype </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.orderType}} </mat-cell>
+      <mat-cell *matCellDef="let order"> {{types[order.orderType].viewValue}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -49,6 +50,8 @@
   </div>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>EDIT</button>
+    Amount: {{order.amount}}<br>
+	Gst: {{order.tax|number:'1.2-2'}}<br>
+	Total: {{order.total|number:'1.2-2'}}
   </mat-card-actions>
 </mat-card>

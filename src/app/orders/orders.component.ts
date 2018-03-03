@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {Order} from '../order';
 import { OrdersService } from '../orders.service';
+import { QzTrayService } from '../qz-tray.service';
 import {MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
 @Component({
   selector: 'app-orders',
@@ -15,6 +16,11 @@ export class OrdersComponent implements OnInit, AfterViewInit {
 'totalQuantity',
 'amount',
 'deliveryStatus'];
+  types = [
+    {value: '0', viewValue: 'Processing'},
+    {value: '1', viewValue: 'Delivery'},
+    {value: '2', viewValue: 'Completed'}
+  ];
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

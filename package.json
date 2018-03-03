@@ -2,13 +2,16 @@
   "name": "laundry",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron": "electron .",
+    "electron-build": "ng build --prod && electron ."
   },
   "private": true,
   "dependencies": {
@@ -23,9 +26,17 @@
     "@angular/platform-browser": "^5.2.0",
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
+    "angular-print": "^0.3.8",
     "core-js": "^2.4.1",
+    "escpos-print": "^2.0.0",
     "npm": "^5.6.0",
+    "print-js": "^1.0.31",
+    "qz-tray": "^2.0.4",
     "rxjs": "^5.5.6",
+    "serialport": "^6.0.5",
+    "sha": "^2.0.1",
+    "sprintf-js": "^1.1.1",
+    "ws": "^4.1.0",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {

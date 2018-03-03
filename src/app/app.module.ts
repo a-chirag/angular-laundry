@@ -23,8 +23,10 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NgControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ClientsComponent } from './clients/clients.component';
 import { AddOrderComponent } from './add-order/add-order.component';
+import { QzTrayService } from './qz-tray.service';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatSelectModule} from '@angular/material/select';
+import {AngularPrint} from 'angular-print';
 
 
 @NgModule({
@@ -60,7 +62,7 @@ import {MatSelectModule} from '@angular/material/select';
   exports: [
     MatAutocompleteModule
   ],
-  providers: [OrdersService, ClientService],
+  providers: [OrdersService, ClientService, QzTrayService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

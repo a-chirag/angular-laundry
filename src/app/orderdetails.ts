@@ -1,3 +1,4 @@
+
 export class OrderDetails {
   jobOrderId: string;
   clothName: string;
@@ -7,4 +8,5 @@ export class OrderDetails {
   quantity: number;
 
   orderType: number;
+  
 }

@@ -48,7 +48,7 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="orderType">
       <mat-header-cell *matHeaderCellDef mat-sort-header> ordertype </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.orderType}} </mat-cell>
+      <mat-cell *matCellDef="let order"> {{types[order.orderType].viewValue}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
@@ -78,7 +78,8 @@
   </mat-select>
 </mat-form-field></td>
 <td><button mat-button (click)="addorder()">ADD</button></td>
-</tr></table>
+</tr>
+<tr><td> Amount: {{order.amount}}</td><td>Gst: {{order.tax|number:'1.2-2'}}</td><td>Total: {{order.total|number:'1.2-2'}}</td></tr></table>
 </form>
     <button mat-button (click)="submitOrder()">Submit</button>
   </mat-card-actions>
