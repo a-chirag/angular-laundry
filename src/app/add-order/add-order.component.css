@@ -1,37 +1,19 @@
-.example-form {
-  min-width: 150px;
-  max-width: 500px;
-  width: 100%;
+.left{
+	float: left;
 }
 .add-order{
-	width: 40%;
   margin: 20px;
-}
-.example-full-width {
-  width: 100%;
 }
 .example-card {
-  width: 60%;
   margin: 20px;
+}
+.bill-card {
+  width: 45%;
+  margin: 20px;
+  float: right;
 }
 .example-spacer {
   flex: 1 1 auto;
-}
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
-.example-container {
-  display: inline;
-  flex-direction: column;
-  max-height: 500px;
-  min-width: 300px;
-}
-.col-1-2{
-	width:50%;
-}
-.col-1-4{
-	width:25%;
 }
 .mat-table {
   overflow: auto;
@@ -40,11 +22,6 @@
 .mat-header-cell.mat-sort-header-sorted {
   color: black;
 }
-.example-header {
-  min-height: 64px;
-  padding: 8px 24px 0;
-}
-
 .mat-form-field {
   font-size: 14px;
   width: 100%;
@@ -52,4 +29,9 @@
 .status{
 	background-color: #0001d4;
 	color: white;
+}
+.summary{
+	float: right;
+	width: 30%;
+	font-size: 14px;
 }

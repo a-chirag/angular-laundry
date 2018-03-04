@@ -129,5 +129,15 @@ export class QzTrayService {
                   or.quantity,
                   or.amount);
   }
-  
+  printBarcode(printer: string, order: Order): any{
+    this.config = qz.configs.create(printer);
+    let data = [
+ 'GAP 0,0\n',
+ 'DIRECTION 1\n',
+ 'CLS\n',
+ 'BARCODE 10,50,"128",1,0,2,2,"' + order.id + '"\n',
+ 'PRINT 1"\n'
+        ];
+    return qz.print(this.config, data);
+  }
 }

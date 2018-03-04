@@ -1,5 +1,6 @@
 import { OrderDetails } from './orderdetails';
 export class OrderAdd {
+  urgency: number;
   id: string;
 submissionDate: Date;
 expectedDeliveryDate: Date;

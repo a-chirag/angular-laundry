@@ -42,6 +42,11 @@ contactNo: string;
     {value: '5', viewValue: 'Ironing'},
     {value: '6', viewValue: 'Polishing'}
   ];
+  urgency = [
+  {value: '0', viewValue: 'Normal'},
+    {value: '1', viewValue: 'Same Day'},
+    {value: '2', viewValue: 'Next Day'}
+  ];
   constructor(private clientService: ClientService, private router: Router) {
     this.clientService.getClothes().subscribe(clothes => this.options = clothes); }
 
