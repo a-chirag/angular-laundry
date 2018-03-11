@@ -47,7 +47,6 @@ types = [
   constructor(private route: ActivatedRoute, private clientService: ClientService,
   private orderService: OrdersService,  private qztray: QzTrayService, private router : Router) { }
   ngOnInit() {
-    
     this.getHero();
 this.dataSource = new MatTableDataSource<OrderDetails[]>();
   }
@@ -62,7 +61,8 @@ getHero(): void {
   this.orderService.getOrder(id)
     .subscribe(order => {this.order = order;
     this.dataSource.data = this.order.orderDetails;
-    this.submissionDateForm = new FormControl(this.order.submissionDate); } );
+    this.submissionDateForm = new FormControl(this.order.submissionDate);
+    this.clientService.getClient(this.order.contactNo).subscribe(client => {this.client = client;}); } );
 }
 print() {
   console.log('printing');
@@ -81,10 +81,12 @@ print() {
 navigation()
   {
   console.log("In");
-  this.clientService.getClient(this.order.contactNo).subscribe(client => {this.client = client; });
-  this.setCurrentPosition();
-  this.navigate = ""+"http://maps.google.com/maps?saddr="+this.currentLat+","+this.currentLng+" &daddr=18.518838,73.926254";
-  this.router.navigate([this.navigate]);
+  console.log(this.client);
+  this.navigate = "https://maps.google.com/?q="+this.client.lat+","+this.client.lng;
+  /*this.setCurrentPosition();
+  this.navigate = ""+"http://maps.google.com/maps?saddr="+this.currentLat+","+this.currentLng+" &daddr=18.518838,73.926254";*/
+  console.log(this.navigate);
+  window.open(this.navigate, "_blank");
 }
 cancelOrder()
   {
