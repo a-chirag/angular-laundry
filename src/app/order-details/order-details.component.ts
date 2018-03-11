@@ -1,4 +1,6 @@
 
+import { Client } from '../client';
+import { ClientService } from '../client.service';
 import { Component, OnInit, Input, AfterViewInit, ViewChild } from '@angular/core';
 import { Order } from '../order';
 import { OrderDetails } from '../orderdetails';
@@ -7,7 +9,7 @@ import { QzTrayService } from '../qz-tray.service';
 import { status } from '../status';
 import { FormControl } from '@angular/forms';
 import { MatTableDataSource, MatSort } from '@angular/material';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import printJS from 'print-js';
 import qz from 'qz-tray';
 
@@ -20,7 +22,11 @@ import qz from 'qz-tray';
 
 export class OrderDetailsComponent implements OnInit, AfterViewInit {
   dataSource: any;
+  navigate: string;
+  currentLat: any;
+  currentLng: any;
   order: Order;
+  client: Client;
   status: status;
   submissionDateForm;
   displayedColumns = ['clothName',
@@ -38,9 +44,10 @@ types = [
     {value: '6', viewValue: 'Polishing'}
   ];
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private route: ActivatedRoute,
-  private orderService: OrdersService,  private qztray: QzTrayService ) { }
+  constructor(private route: ActivatedRoute, private clientService: ClientService,
+  private orderService: OrdersService,  private qztray: QzTrayService, private router : Router) { }
   ngOnInit() {
+    
     this.getHero();
 this.dataSource = new MatTableDataSource<OrderDetails[]>();
   }
@@ -60,6 +67,28 @@ getHero(): void {
 print() {
   console.log('printing');
   this.qztray.printData('retsol' , this.order).subscribe(data => console.log(data));
+}
+  private setCurrentPosition() {
+    this.currentLat = 18.511526;
+    this.currentLng = 73.922554;
+    /*if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.currentLat = position.coords.latitude;
+        this.currentLng = position.coords.longitude;
+      });
+    }*/
+  }
+navigation()
+  {
+  console.log("In");
+  this.clientService.getClient(this.order.contactNo).subscribe(client => {this.client = client; });
+  this.setCurrentPosition();
+  this.navigate = ""+"http://maps.google.com/maps?saddr="+this.currentLat+","+this.currentLng+" &daddr=18.518838,73.926254";
+  this.router.navigate([this.navigate]);
+}
+cancelOrder()
+  {
+  
 }
 }
 

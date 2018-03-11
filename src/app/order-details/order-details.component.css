@@ -1,7 +1,26 @@
-.example-card {
+@media screen and (max-width: 768px) {
+
+    .example-card { width:100%; }
+
+    /* #secondary { width:100%; margin:0; border:none; } */
+    .Navigation
+{
+	padding-right: 30px;
+}
+.mat-form-field {
+  font-size: 8px;
+  width: 100%;
+}
+.mat-card-content
+{
+	font-size: 10px;
+}
+
+}
+/* .example-card {
   width: 60%;
   margin: 20px;
-}
+} */
 .example-spacer {
   flex: 1 1 auto;
 }
@@ -33,10 +52,11 @@
   padding: 8px 24px 0;
 }
 
-.mat-form-field {
+/* .mat-form-field {
   font-size: 14px;
   width: 100%;
-}
+} */
+
 .status{
 	background-color: #0001d4;
 	color: white;
