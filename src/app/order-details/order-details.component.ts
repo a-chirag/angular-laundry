@@ -88,7 +88,7 @@ navigation()
 }
 cancelOrder()
   {
-  
+  this.orderService.deleteOrder(this.order.id).subscribe(this.router.navigate(['/']));
 }
   printData() {
     this.qztray.printData('Receipt' , this.order).subscribe(data => console.log(data));
