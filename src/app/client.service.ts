@@ -7,10 +7,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import {Order} from './order';
 import { OrderAdd } from './order-add';
+import { User } from './user';
 
 @Injectable()
 export class ClientService {
 private clientUrl = 'api/clients';
+  private userUrl = 'api/users';
   private clothesUrl = 'api/clothes';
   constructor(private http: HttpClient) {}
 
@@ -59,5 +61,15 @@ getClothes(): Observable<Cloth[]> {
   putCompany(company: Company): Observable<Company> {
     return this.http.put<Company>('/api/settings', company);
   }
+  postAddUser(user: User): Observable<User> {
+    return this.http.post<User>(this.userUrl + '/add', user);
+  }
+  getUsers (): Observable<User[]> {
+  return this.http.get<User[]>(this.userUrl + '/all');
+}
+  putUser(user: User): Observable<User> {
+    return this.http.put<User>(this.userUrl+'/add', user);
+  }
+  
 }
 

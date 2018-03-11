@@ -68,24 +68,9 @@ print() {
   console.log('printing');
   this.qztray.printBarcode('Barcode' , this.order).subscribe(data => console.log(data));
 }
-  private setCurrentPosition() {
-    this.currentLat = 18.511526;
-    this.currentLng = 73.922554;
-    /*if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.currentLat = position.coords.latitude;
-        this.currentLng = position.coords.longitude;
-      });
-    }*/
-  }
 navigation()
   {
-  console.log("In");
-  console.log(this.client);
   this.navigate = "https://maps.google.com/?q="+this.client.lat+","+this.client.lng;
-  /*this.setCurrentPosition();
-  this.navigate = ""+"http://maps.google.com/maps?saddr="+this.currentLat+","+this.currentLng+" &daddr=18.518838,73.926254";*/
-  console.log(this.navigate);
   window.open(this.navigate, "_blank");
 }
 cancelOrder()

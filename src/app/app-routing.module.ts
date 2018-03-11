@@ -2,6 +2,7 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AddClientComponent } from './add-client/add-client.component';
 import { AddClothComponent } from './add-cloth/add-cloth.component';
 import { AddOrderComponent } from './add-order/add-order.component';
+import { AddUserComponent } from './add-user/add-user.component';
 import { AuthGuardService } from './auth-guard.service';
 import { ClientsDetailsComponent } from './clients-details/clients-details.component';
 import { ClientsComponent } from './clients/clients.component';
@@ -16,6 +17,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {OrdersComponent} from './orders/orders.component';
 import { PendingDeliveryComponent } from './pending-delivery/pending-delivery.component';
 import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
 
 const routes: Routes = [
   { path: 'orders', component: OrdersComponent, canActivate: [AuthGuardService] },
@@ -31,7 +33,9 @@ const routes: Routes = [
   { path: 'pendingOrders', component: PendingOrdersComponent, canActivate: [AuthGuardService] },
   { path: 'pendingDelivery', component: PendingDeliveryComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent},
-  { path: 'access', component: AccessDeniedComponent}
+  { path: 'access', component: AccessDeniedComponent},
+  { path: 'addUser', component: AddUserComponent},
+  { path: 'manageUser', component: UserDetailsComponent}
 ];
 
 @NgModule({

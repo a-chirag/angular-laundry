@@ -6,7 +6,7 @@
 </button>
 <button mat-button [matMenuTriggerFor]="clothes" class="docs-navbar-hide-small docs-button">Clothes
 </button>
-<button mat-button routerLink="/settings" class="docs-navbar-hide-small docs-button">Company
+<button mat-button [matMenuTriggerFor]="company" class="docs-navbar-hide-small docs-button">Company
 </button>
 <div class="flex-spacer"></div>
 <button mat-button routerLink="/login" *ngIf="!user" class="docs-button">Login
@@ -24,6 +24,11 @@
   <button mat-menu-item routerLink="/addClient"> Add Client </button>
   <button mat-menu-item routerLink="/clients"> All Clients </button>
 </mat-menu>
+<mat-menu #company="matMenu">
+  <button mat-menu-item routerLink="/settings"> Settings </button>
+  <button mat-menu-item routerLink="/addUser"> Add User </button>
+  <button mat-menu-item routerLink="/manageUser"> Manage User </button>
+</mat-menu>
 <mat-menu #clothes="matMenu">
   <button mat-menu-item routerLink="/addCloth"> Add Cloth </button>
   <button mat-menu-item routerLink="/clothes"> All Clothes </button>
@@ -36,7 +41,7 @@
 </button>
 <button mat-button [matMenuTriggerFor]="clothes" class="docs-navbar-link">Clothes
 </button>
-<button mat-button routerLink="/settings" class="docs-navbar-link">Company
+<button mat-button [matMenuTriggerFor]="company" class="docs-navbar-link">Company
 </button>
 </mat-toolbar>
 <router-outlet></router-outlet>

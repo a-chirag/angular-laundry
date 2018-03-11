@@ -41,6 +41,10 @@ import { PendingDeliveryComponent } from './pending-delivery/pending-delivery.co
 import { LoginComponent } from './login/login.component';
 import { AccessResolverService } from './access-resolver.service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { AddUserComponent } from './add-user/add-user.component';
+import { UserDetailsComponent } from './user-details/user-details.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
 
 
 @NgModule({
@@ -59,7 +63,9 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
     PendingOrdersComponent,
     PendingDeliveryComponent,
     LoginComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    AddUserComponent,
+    UserDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +87,7 @@ import { AccessDeniedComponent } from './access-denied/access-denied.component';
     MatNativeDateModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
+    MatSlideToggleModule,
     MatSelectModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyAee0YfNLsIlYLK1Z1iUmwt5L-SK9Mu7Y4',

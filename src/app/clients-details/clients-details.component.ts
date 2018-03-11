@@ -10,7 +10,7 @@ import { ActivatedRoute , Router} from '@angular/router';
   templateUrl: './clients-details.component.html',
   styleUrls: ['./clients-details.component.css']
 })
-export class ClientsDetailsComponent implements OnInit{
+export class ClientsDetailsComponent implements OnInit, AfterViewInit {
   client: Client;
   id : string;
  sex = [
@@ -25,7 +25,7 @@ export class ClientsDetailsComponent implements OnInit{
   searchControl: FormControl;
   zoom: number;
   @ViewChild('search')
-  public searchElementRef: ElementRef;
+  private searchElementRef: ElementRef;
 
   constructor(private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,private route: ActivatedRoute,private router : Router, private clientService: ClientService) { 
@@ -34,22 +34,30 @@ export class ClientsDetailsComponent implements OnInit{
 
   ngOnInit() {
     this.clientService.getClient(this.id).subscribe(client => this.client = client);
-    this.zoom = 6;
+    this.zoom = 14;
     this.searchControl = new FormControl();
-    this.setCurrentPosition();
-     this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+    //this.setCurrentPosition();
+  }
+   ngAfterViewInit(): void {
+     setTimeout(() => {
+      this.load();
+    }, 500);
+  }
+  load()
+  {
+    this.mapsAPILoader.load().then(() => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: ['address']
       });
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
           this.client.lat = place.geometry.location.lat();
           this.client.lng = place.geometry.location.lng();
-          this.zoom = 12;
+          this.zoom = 14;
         });
       });
     });
@@ -57,8 +65,6 @@ export class ClientsDetailsComponent implements OnInit{
   placeMarker($event) {
     this.client.lat = $event.coords.lat;
     this.client.lng = $event.coords.lng;
-    console.log(this.client.lat);
-    console.log(this.client.lng);
   }
 
   private setCurrentPosition() {

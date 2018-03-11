@@ -1,0 +1,19 @@
+.mat-chip{
+	margin: 5px !important;
+}
+
+
+.example-full-width {
+  width: 100%;
+}
+.mat-form-field{
+	padding:0px !important;
+}
+.example-card {
+    margin: 10px;
+    padding: 10px;
+}
+.status{
+	background-color: #0001d4;
+	color: white;
+}

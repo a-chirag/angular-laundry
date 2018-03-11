@@ -1,0 +1,24 @@
+<div class="col-md-offset-2 col-md-8 col-sm-12">
+<mat-card class="example-card">
+<table class="table table-striped">
+<thead><tr><th>Username</th>
+<th>Authority</th>
+<th>Enabled</th></thead>
+<ng-container *ngFor="let user of users" >
+ <tr>
+ <td>{{user.username}}</td>
+ <td>
+ <mat-chip-list>
+    <mat-chip [class.status]="user.authorities === 'ROLE_USER'" color="warm" selected="true" (click)="changeAuthority(this,'ROLE_USER')">User</mat-chip>
+    <mat-chip [class.status]="user.authorities === 'ROLE_STAFF'" color="warm" selected="true" (click)="changeAuthority(user,'ROLE_STAFF')">Staff</mat-chip>
+    <mat-chip [class.status]="user.authorities === 'ROLE_DELIVERY'" color="warm" selected="true" (click)="changeAuthority(user, 'ROLE_DELIVERY')">Delivery</mat-chip>
+    </mat-chip-list>
+</td>
+<td>
+<mat-slide-toggle [(ngModel)]="user.enabled" (change)="clientService.putUser(user).subscribe();" name="enabled">Enabled</mat-slide-toggle>
+</td>
+ </tr>
+</ng-container>
+</table>
+</mat-card>
+</div>
