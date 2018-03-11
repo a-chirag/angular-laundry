@@ -1,16 +1,16 @@
-
+<div class="col-md-8 col-12">
 <mat-card class="example-card" id = "bill" *ngIf="order">
   <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
     <mat-card-title>{{order.clientName}}</mat-card-title>
     <mat-card-subtitle>{{order.contactNo}}</mat-card-subtitle>
-    <span class="example-spacer"></span>
     <mat-chip-list>
     <mat-chip [class.status]="order.deliveryStatus === 0" color="warm" selected="true" (click)="changeStatus(0)">Processing</mat-chip>
     <mat-chip [class.status]="order.deliveryStatus === 1" color="warm" selected="true" (click)="changeStatus(1)">Delivery</mat-chip>
     <mat-chip [class.status]="order.deliveryStatus === 2" color="warm" selected="true" (click)="changeStatus(2)">Completed</mat-chip>
-    <mat-chip [class.status]="true" color="warm" selected="true" (click)="print()">Completed</mat-chip>
+    <mat-chip [class.status]="true" color="warm" selected="true" (click)="print()">Print Tag</mat-chip>
+    <mat-chip [class.status]="true" color="warm" selected="true" (click)="printData()">Receipt</mat-chip>
     </mat-chip-list>
+    
   </mat-card-header>
   <mat-card-content>
     Expected Delivery: {{order.expectedDeliveryDate}}
@@ -49,12 +49,12 @@
   </mat-table>
   </div>
   </mat-card-content>
-  <mat-card-actions>
-    Amount: {{order.amount}}<br>
-    <button *ngIf="order.deliveryStatus === 1" class="Navigation" style="float: right;" mat-button (click)="navigation()">Navigation</button>
+  <table class="table">
+		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.amount}}</td></tr>
+		<button *ngIf="order.deliveryStatus === 1" class="Navigation" style="float: right;" mat-button (click)="navigation()">Navigation</button>
     <button *ngIf="order.deliveryStatus === 0" style="float: right;" mat-button (click)="cancelOrder()">Cancel Order</button>
-	Gst: {{order.tax|number:'1.2-2'}}<br>
-	Total: {{order.total|number:'1.2-2'}}
-	
-  </mat-card-actions>
+		<tr><td align="right">Gst @ 18%:</td><td> {{order.tax|number:'1.2-2'}}</td></tr>
+		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>
+	</table>
 </mat-card>
+</div>

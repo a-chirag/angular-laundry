@@ -41,6 +41,9 @@ getClothes(): Observable<Cloth[]> {
   postAddClient(addclient: AddClient): Observable<AddClient> {
     return this.http.post<AddClient>(this.clientUrl + '/', addclient);
   }
+  print(print: any): Observable<any> {
+    return this.http.post<any>('/api/print', print);
+  }
   getClientId (): Observable<number> {
   return this.http.get<number>(this.clientUrl + '/nextId' );
 }

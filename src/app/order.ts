@@ -8,6 +8,7 @@ expectedDeliveryDate: Date;
 totalQuantity: number;
 amount: number;
 deliveryStatus: status;
+  urgency: number;
   clientId: number;
   clientName: string;
   contactNo: string;

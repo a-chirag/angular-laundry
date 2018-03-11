@@ -66,7 +66,7 @@ getHero(): void {
 }
 print() {
   console.log('printing');
-  this.qztray.printData('retsol' , this.order).subscribe(data => console.log(data));
+  this.qztray.printBarcode('Barcode' , this.order).subscribe(data => console.log(data));
 }
   private setCurrentPosition() {
     this.currentLat = 18.511526;
@@ -90,5 +90,8 @@ cancelOrder()
   {
   
 }
+  printData() {
+    this.qztray.printData('Receipt' , this.order).subscribe(data => console.log(data));
+  }
 }
 

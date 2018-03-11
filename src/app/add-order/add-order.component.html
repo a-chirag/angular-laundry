@@ -1,87 +1,84 @@
-<mat-card class="add-order">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Client Phone Number" [(ngModel)]="contactNo" name="contactNo">
-    
-  </mat-form-field>
-  <button mat-button (click)= getClient()>Search</button>
-</mat-card>
-<div *ngIf="client">
-<mat-card class="example-card">
-  <mat-card-header>
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>{{client.fullname}}</mat-card-title>
-    <mat-card-subtitle>{{client.contactNo}}</mat-card-subtitle>
-    <span class="example-spacer"></span>
-  </mat-card-header>
-  <mat-card-content>
-    <span>Bill No.: {{order.id}}</span><br><span>Date: {{order.submissionDate | date}}</span>
-    <mat-form-field>
-  <input matInput [matDatepicker]="picker1" placeholder="Delivery Date" [(ngModel)]="order.expectedDeliveryDate">
-  <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-  <mat-datepicker #picker1></mat-datepicker>
-</mat-form-field>
-    
-    <div class="example-container mat-elevation-z8 col-1-2">
-<mat-table #table [dataSource]="dataSource" matSort>
+<div class="col-12 col-md-6">
+	<mat-card class="add-card"> <mat-form-field
+		class="example-full-width"> <input matInput
+		placeholder="Client Phone Number" [(ngModel)]="contactNo"
+		name="contactNo"> </mat-form-field>
+	<button mat-button (click)="getClient()">Search</button>
+	</mat-card>
 
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
+	<mat-card class="add-card" *ngIf="client"> 
+		<mat-card-actions> 
+	<mat-form-field class="col-md-6 col-xs-12"> <input
+					matInput [matDatepicker]="picker1" placeholder="Delivery Date"
+					[(ngModel)]="order.expectedDeliveryDate"> <mat-datepicker-toggle
+					matSuffix [for]="picker1"></mat-datepicker-toggle> <mat-datepicker
+					#picker1></mat-datepicker> </mat-form-field>
+				<mat-form-field class="col-md-6 col-xs-12"> <mat-select
+					placeholder="Type" [(ngModel)]="order.urgency" name="urgency">
+				<mat-option *ngFor="let type of urgency" [value]="type.value">
+				{{ type.viewValue }} </mat-option> </mat-select> </mat-form-field>
 
-    <!-- Position Column -->
-    <ng-container matColumnDef="clothName">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Cloth </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.clothName}} </mat-cell>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="amount">
-      <mat-header-cell *matHeaderCellDef  mat-sort-header> Amount </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.amount}} </mat-cell>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="quantity">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.quantity}} </mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="orderType">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> ordertype </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{types[order.orderType].viewValue}} </mat-cell>
-    </ng-container>
-
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-  </div>
-  </mat-card-content>
-  <mat-card-actions>
-  <form class="example-form">
-  <table class="example-full-width" cellspacing="0"><tr>
-  <td><mat-form-field class="example-full-width">
-    <input type="text" placeholder="Item" aria-label="Item" matInput [formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="cloth" name="clothName">
-    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{ option.name }}
-      </mat-option>
-    </mat-autocomplete>
-  </mat-form-field></td><td>
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="Quantity" type="number" [(ngModel)]="orderdetails.quantity" name="quantity" value="1">
-  </mat-form-field></td><td>
-  <mat-form-field>
-  <mat-select placeholder="Type" [(ngModel)]="orderdetails.orderType" name="ordertype">
-    <mat-option *ngFor="let type of types" [value]="type.value" >
-      {{ type.viewValue }}
-    </mat-option>
-  </mat-select>
-</mat-form-field></td>
-<td><button mat-button (click)="addorder()">ADD</button></td>
-</tr>
-<tr><td> Amount: {{order.amount}}</td><td>Gst: {{order.tax|number:'1.2-2'}}</td><td>Total: {{order.total|number:'1.2-2'}}</td></tr></table>
+	<form class="example-form">
+	<mat-form-field class="col-md-3 col-xs-12"> <input type="text"
+		placeholder="Item" aria-label="Item" matInput
+		[formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="cloth"
+		name="clothName"> <mat-autocomplete #auto="matAutocomplete"
+		[displayWith]="displayFn"> <mat-option
+		*ngFor="let option of filteredOptions | async" [value]="option">
+	{{ option.name }} </mat-option> </mat-autocomplete> </mat-form-field> <mat-form-field class="col-md-3 col-xs-12">
+	<input matInput placeholder="Quantity" type="number"
+		[(ngModel)]="orderdetails.quantity" name="quantity" value="1">
+	</mat-form-field> <mat-form-field class="col-md-3 col-xs-12"> <mat-select
+		placeholder="Type" [(ngModel)]="orderdetails.orderType"
+		name="ordertype"> <mat-option *ngFor="let type of types"
+		[value]="type.value"> {{ type.viewValue }} </mat-option> </mat-select> </mat-form-field>
+	<button mat-button (click)="addorder()">ADD</button>
+	<br>
 </form>
-    <button mat-button (click)="submitOrder()">Submit</button>
-  </mat-card-actions>
+</mat-card-actions>
+<mat-card-footer class="col-12">
+<button mat-button (click)="submitOrder()">Submit</button>
+</mat-card-footer>
 </mat-card>
+</div>
+<div class="col-md-6">
+	<mat-card class="add-card" *ngIf="client"> <mat-card-header>
+	<mat-card-title>{{client.fullname}}</mat-card-title> <mat-card-subtitle>
+	<table>
+		<tr>
+			<td>{{client.contactNo}}</td>
+		</tr>
+		<tr>
+			<td>Bill No.: {{order.id}}</td>
+		</tr>
+		<tr>
+			<td>Date: {{order.submissionDate | date}}</td>
+		</tr>
+	</table>
+	</mat-card-subtitle> </mat-card-header> <mat-card-content> <mat-table #table
+		[dataSource]="dataSource" matSort> <!--- Note that these columns can be defined in any order.
+	          The actual rendered columns are set as a property on the row definition" -->
+
+	<!-- Position Column --> <ng-container matColumnDef="clothName">
+	<mat-header-cell *matHeaderCellDef mat-sort-header>
+	Cloth </mat-header-cell> <mat-cell *matCellDef="let order">
+	{{order.clothName}} </mat-cell> </ng-container> <!-- Name Column --> <ng-container
+		matColumnDef="amount"> <mat-header-cell
+		*matHeaderCellDef mat-sort-header> Amount </mat-header-cell> <mat-cell
+		*matCellDef="let order"> {{order.amount}} </mat-cell> </ng-container> <!-- Weight Column -->
+	<ng-container matColumnDef="quantity"> <mat-header-cell
+		*matHeaderCellDef mat-sort-header> Quantity </mat-header-cell> <mat-cell
+		*matCellDef="let order"> {{order.quantity}} </mat-cell> </ng-container> <!-- Symbol Column -->
+	<ng-container matColumnDef="orderType"> <mat-header-cell
+		*matHeaderCellDef mat-sort-header> ordertype </mat-header-cell> <mat-cell
+		*matCellDef="let order">
+	{{types[order.orderType].viewValue}} </mat-cell> </ng-container> <mat-header-row
+		*matHeaderRowDef="displayedColumns"></mat-header-row> <mat-row
+		*matRowDef="let row; columns: displayedColumns;"></mat-row> </mat-table> </mat-card-content> <mat-card-actions>
+	<table class="table">
+		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.amount}}</td></tr>
+		<tr><td align="right">Gst @ 18%:</td><td> {{order.tax|number:'1.2-2'}}</td></tr>
+		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>
+	</table>
+	</mat-card-actions> </mat-card>
 </div>
