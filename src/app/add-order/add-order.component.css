@@ -1,16 +1,14 @@
+.example-form{
+	width:100%;
+}
 .left{
 	float: left;
 }
-.add-order{
-  margin: 20px;
+.add-card{
+  margin-top: 20px;
 }
-.example-card {
-  margin: 20px;
-}
-.bill-card {
-  width: 45%;
-  margin: 20px;
-  float: right;
+.mat-form-field{
+	padding: 0px !important;
 }
 .example-spacer {
   flex: 1 1 auto;
@@ -24,14 +22,8 @@
 }
 .mat-form-field {
   font-size: 14px;
-  width: 100%;
 }
 .status{
 	background-color: #0001d4;
 	color: white;
-}
-.summary{
-	float: right;
-	width: 30%;
-	font-size: 14px;
 }

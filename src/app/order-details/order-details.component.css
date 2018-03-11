@@ -1,25 +1,14 @@
 .example-card {
-  width: 60%;
-  margin: 20px;
+  margin-top: 20px;
 }
 .example-spacer {
   flex: 1 1 auto;
-}
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
 }
 .example-container {
   display: inline;
   flex-direction: column;
   max-height: 500px;
   min-width: 300px;
-}
-.col-1-2{
-	width:50%;
-}
-.col-1-4{
-	width:25%;
 }
 .mat-table {
   overflow: auto;
@@ -36,6 +25,9 @@
 .mat-form-field {
   font-size: 14px;
   width: 100%;
+}
+.mat-chip{
+	margin: 5px !important;
 }
 .status{
 	background-color: #0001d4;

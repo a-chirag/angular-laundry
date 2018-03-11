@@ -9,21 +9,57 @@ h2 {
   margin-top: 0;
   padding-top: 0;
 }
-nav a {
-  padding: 5px 10px;
-  text-decoration: none;
-  margin-top: 10px;
-  display: inline-block;
-  background-color: #eee;
-  border-radius: 4px;
+
+docs-navbar-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 8px 16px;
+
+  .mat-button:last-child {
+      margin-left: auto;
+    }
 }
-nav a:visited, a:link {
-  color: #607D8B;
+
+.flex-spacer {
+  flex-grow: 1;
 }
-nav a:hover {
-  color: #039be5;
-  background-color: #CFD8DC;
+
+.docs-angular-logo {
+  height: 26px;
+  margin: 0 4px 3px 0;
+  vertical-align: middle;
 }
-nav a.active {
-  color: #039be5;
+
+
+.docs-navbar-link {
+  text-decoration: inherit;
+  flex: 1;
+}
+
+.docs-navbar {
+  display: none;
+}
+
+.docs-navbar-show-small {
+  display: none;
+}
+
+/**
+  * Rules for when the device is detected to be a small screen.
+  * Moves content two rows instead of one.
+  */
+@media (max-width: 720px) {
+  .docs-navbar-hide-small {
+    display: none;
+  }
+
+  .docs-navbar-show-small {
+    display: block;
+  }
+
+  .docs-navbar {
+    display: flex;
+  }
+
 }

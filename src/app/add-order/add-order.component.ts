@@ -53,6 +53,7 @@ contactNo: string;
   ngOnInit() {
     this.order = new OrderAdd();
     this.order.orderDetails = [];
+    this.order.urgency = 0;
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith<string | Cloth>(''),
@@ -115,7 +116,10 @@ getClient(): void {
     this.order.tax = this.order.amount* 0.18;
     this.order.total= this.order.amount+this.order.tax;
     this.order.totalQuantity = 0;
-    this.order.orderDetails.forEach(item => this.order.totalQuantity += item.quantity);
+    this.order.orderDetails.forEach(item => {
+      if(item.clothName !=='weight')
+        {
+      this.order.totalQuantity += item.quantity}});
     this.orderdetails = new OrderDetails();
     this.cloth = new Cloth();
   }

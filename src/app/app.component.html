@@ -1,13 +1,17 @@
-
-<mat-toolbar color="primary">
-  <button mat-button routerLink="/"><span>{{title}}</span></button>
-  <button mat-button [matMenuTriggerFor]="order">Orders
+<mat-toolbar class="docs-navbar-header" color="primary">
+  <button mat-button routerLink="/" class="docs-button"><span>{{title}}</span></button>
+  <button mat-button [matMenuTriggerFor]="order" class="docs-navbar-hide-small docs-button">Orders
 </button>
-<button mat-button [matMenuTriggerFor]="clients">Clients
+<button mat-button [matMenuTriggerFor]="clients" class="docs-navbar-hide-small docs-button">Clients
 </button>
-<button mat-button [matMenuTriggerFor]="clothes">Clothes
+<button mat-button [matMenuTriggerFor]="clothes" class="docs-navbar-hide-small docs-button">Clothes
 </button>
-<button mat-button routerLink="/settings">Company
+<button mat-button routerLink="/settings" class="docs-navbar-hide-small docs-button">Company
+</button>
+<div class="flex-spacer"></div>
+<button mat-button routerLink="/login" *ngIf="!user" class="docs-button">Login
+</button>
+<button mat-button routerLink="/login" *ngIf="user" class="docs-button">Logout
 </button>
 <mat-menu #order="matMenu">
   <button mat-menu-item routerLink="/addOrder"> Add Order </button>
@@ -24,5 +28,15 @@
   <button mat-menu-item routerLink="/addCloth"> Add Cloth </button>
   <button mat-menu-item routerLink="/clothes"> All Clothes </button>
 </mat-menu>
+</mat-toolbar>
+<mat-toolbar class="docs-navbar docs-navbar-show-small" color="primary">
+  <button mat-button [matMenuTriggerFor]="order" class="docs-navbar-link">Orders
+</button>
+<button mat-button [matMenuTriggerFor]="clients" class="docs-navbar-link">Clients
+</button>
+<button mat-button [matMenuTriggerFor]="clothes" class="docs-navbar-link">Clothes
+</button>
+<button mat-button routerLink="/settings" class="docs-navbar-link">Company
+</button>
 </mat-toolbar>
 <router-outlet></router-outlet>

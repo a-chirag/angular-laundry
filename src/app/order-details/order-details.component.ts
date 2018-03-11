@@ -59,7 +59,10 @@ getHero(): void {
 }
 print() {
   console.log('printing');
-  this.qztray.printData('retsol' , this.order).subscribe(data => console.log(data));
+  this.qztray.printBarcode('Barcode' , this.order).subscribe(data => console.log(data));
 }
+  printData() {
+    this.qztray.printData('Receipt' , this.order).subscribe(data => console.log(data));
+  }
 }
 

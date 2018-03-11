@@ -34,7 +34,7 @@ export class AddClientComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit() {
-    this.zoom = 6;
+    this.zoom = 12;
     this.searchControl = new FormControl();
     this.setCurrentPosition();
     this.clientdetails = new AddClient();
@@ -77,6 +77,11 @@ export class AddClientComponent implements OnInit {
         this.clientdetails.lng = position.coords.longitude;
         this.zoom = 12;
       });
+    }
+    else{
+      this.clientdetails.lat = 18.5134803;
+        this.clientdetails.lng = 73.92215250000004;
+        this.zoom = 12;
     }
   }
 

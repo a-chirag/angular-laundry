@@ -1,60 +1,42 @@
-<mat-card class="example-card">
+<mat-card class="col-md-offset-2 col-md-8 col-xs-12 col-sm-12">
 <form class="example-form">
-
-  <table class="example-full-width" cellspacing="0"><tr>
-    <td><mat-form-field class="example-full-width">
+	<mat-form-field class="col-md-12 col-sm-12 col-xs-12">
       <input matInput placeholder="Company Name" type="text" [(ngModel)]="companydetails.name" name="name">
-    </mat-form-field></td>
-  </tr></table>
+    </mat-form-field>
 
-  <p>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="col-md-12 col-sm-12 col-xs-12">
       <textarea matInput placeholder="Address" [(ngModel)]="companydetails.address" name="address"></textarea>
     </mat-form-field>
-      </p>
  
-      <table class="example-full-width" cellspacing="0"><tr>
-    <td><mat-form-field class="example-full-width">
+     <mat-form-field class="col-md-4 col-xs-12">
       <input matInput placeholder="Mobile No" type="text" [(ngModel)]="companydetails.phoneNo" name="mobileNo">
     </mat-form-field>
-    </td>
-    <td>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="col-md-4 col-xs-12">
       <input matInput placeholder="Email" type="text" [(ngModel)]="companydetails.email" name="email">
     </mat-form-field>
-    </td>
-    <td>
-    <mat-form-field class="example-full-width">
+    <mat-form-field class="col-md-4 col-xs-12">
       <input matInput placeholder="GST No" type="text" [(ngModel)]="companydetails.gstNo" name="gstNo">
     </mat-form-field>
-    </td>
-</tr>
-<tr>
-<td><mat-form-field class="example-full-width">
+
+	<mat-form-field class="col-md-6 col-xs-12">
       <input matInput placeholder="Same Day Rate" type="number" [(ngModel)]="companydetails.sameDay" name="sameday">
     </mat-form-field>
-    </td>
-    <td><mat-form-field class="example-full-width">
+    <mat-form-field class="col-md-6 col-xs-12">
       <input matInput placeholder="Next Day Rate" type="number" [(ngModel)]="companydetails.nextDay" name="nextday">
     </mat-form-field>
-    </td>
-</tr>
-</table>
-<p>
-<mat-form-field class="example-full-width">
+
+<mat-form-field class="col-md-12 col-sm-12 col-xs-12">
       <textarea matInput placeholder="Terms And Conditions" [(ngModel)]="companydetails.termsAndCondition" name="termsAndCondition"></textarea>
     </mat-form-field>
-    </p>
-    <p>
-<mat-form-field class="example-full-width">
+
+<mat-form-field class="col-md-12 col-sm-12 col-xs-12">
       <input matInput placeholder="Thanking Note" type="text" [(ngModel)]="companydetails.thankingNote" name="thankingNote">
     </mat-form-field>
-    </p>
-    <p>
-<mat-form-field class="example-full-width">
+
+<mat-form-field class="col-md-12 col-sm-12 col-xs-12">
       <input matInput placeholder="Website" type="text" [(ngModel)]="companydetails.website" name="website">
     </mat-form-field>
-    </p>
+
 </form>
 <button mat-button (click)="submitCompany()">Submit</button>
 </mat-card>

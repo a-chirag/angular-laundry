@@ -7,7 +7,6 @@ export class Client {
   sex: string;
   regDate: Date;
   ageRange: string;
-  jobOrders: Order;
   address: string;
   lat: number;
   lng: number;

@@ -31,11 +31,16 @@ import { AddClientComponent } from './add-client/add-client.component';
 import { AgmCoreModule } from '@agm/core';
 import { ClientsDetailsComponent } from './clients-details/clients-details.component';
 import { AddClothComponent } from './add-cloth/add-cloth.component';
+import { AuthGuardService } from './auth-guard.service';
+import { AuthService } from './auth.service';
 import { ClothesComponent } from './clothes/clothes.component';
 import { ClothesDetailsComponent } from './clothes-details/clothes-details.component';
 import { CompanyComponent } from './company/company.component';
 import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
 import { PendingDeliveryComponent } from './pending-delivery/pending-delivery.component';
+import { LoginComponent } from './login/login.component';
+import { AccessResolverService } from './access-resolver.service';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 
 
 @NgModule({
@@ -52,7 +57,9 @@ import { PendingDeliveryComponent } from './pending-delivery/pending-delivery.co
     ClothesDetailsComponent,
     CompanyComponent,
     PendingOrdersComponent,
-    PendingDeliveryComponent
+    PendingDeliveryComponent,
+    LoginComponent,
+    AccessDeniedComponent
   ],
   imports: [
     BrowserModule,
@@ -83,7 +90,7 @@ import { PendingDeliveryComponent } from './pending-delivery/pending-delivery.co
   exports: [
     MatAutocompleteModule
   ],
-  providers: [OrdersService, ClientService, QzTrayService],
+  providers: [OrdersService, ClientService, QzTrayService, AuthGuardService, AuthService, AccessResolverService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
