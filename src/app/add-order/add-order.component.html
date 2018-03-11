@@ -14,7 +14,7 @@
 					matSuffix [for]="picker1"></mat-datepicker-toggle> <mat-datepicker
 					#picker1></mat-datepicker> </mat-form-field>
 				<mat-form-field class="col-md-6 col-xs-12"> <mat-select
-					placeholder="Type" [(ngModel)]="order.urgency" name="urgency">
+					placeholder="Type" [(ngModel)]="order.urgency" name="urgency" (change)="urgencyChange()">
 				<mat-option *ngFor="let type of urgency" [value]="type.value">
 				{{ type.viewValue }} </mat-option> </mat-select> </mat-form-field>
 

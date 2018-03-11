@@ -54,7 +54,7 @@
 		<tr><td align="right">Gst @ 18%:</td><td> {{order.tax|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>
 		<tr><td><button *ngIf="order.deliveryStatus === 1" class="Navigation" style="float: left;" mat-button (click)="navigation()">Navigation</button>
-        <button *ngIf="order.deliveryStatus === 0" style="float: left;" mat-button (click)="cancelOrder()">Cancel Order</button></td></tr>
+        <button *ngIf="order.deliveryStatus === 0" style="float: left;" mat-button (click)="cancelOrder()">Cancel Order</button></td><td></td></tr>
 	</table>
 </mat-card>
 </div>

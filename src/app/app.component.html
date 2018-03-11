@@ -1,4 +1,4 @@
-<mat-toolbar class="docs-navbar-header" color="primary">
+<mat-toolbar class="docs-navbar-header mat-elevation-z6" color="primary">
   <button mat-button routerLink="/" class="docs-button"><span>{{title}}</span></button>
   <button mat-button [matMenuTriggerFor]="order" class="docs-navbar-hide-small docs-button">Orders
 </button>
@@ -34,7 +34,7 @@
   <button mat-menu-item routerLink="/clothes"> All Clothes </button>
 </mat-menu>
 </mat-toolbar>
-<mat-toolbar class="docs-navbar docs-navbar-show-small" color="primary">
+<mat-toolbar class="docs-navbar docs-navbar-show-small  mat-elevation-z6" color="primary">
   <button mat-button [matMenuTriggerFor]="order" class="docs-navbar-link">Orders
 </button>
 <button mat-button [matMenuTriggerFor]="clients" class="docs-navbar-link">Clients

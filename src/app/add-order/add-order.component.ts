@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
-
+import {Company} from '../company';
 @Component({
   selector: 'app-add-order',
   templateUrl: './add-order.component.html',
@@ -22,6 +22,7 @@ client: Client;
   order: OrderAdd;
 contactNo: string;
   dataSource: any;
+  companydetails: Company;
   cloth: Cloth = new Cloth();
    displayedColumns = ['clothName',
     'amount',
@@ -43,17 +44,20 @@ contactNo: string;
     {value: '6', viewValue: 'Polishing'}
   ];
   urgency = [
-  {value: '0', viewValue: 'Normal'},
-    {value: '1', viewValue: 'Same Day'},
-    {value: '2', viewValue: 'Next Day'}
+  {value: 1, viewValue: 'Normal'},
+    {value: 2, viewValue: 'Same Day'},
+    {value: 3, viewValue: 'Next Day'}
   ];
   constructor(private clientService: ClientService, private router: Router) {
     this.clientService.getClothes().subscribe(clothes => this.options = clothes); }
 
   ngOnInit() {
+    this.clientService.getCompany().subscribe(company => {this.companydetails = company;
+                                                    this.urgency[1].value = 1 + this.companydetails.sameDay / 100;
+                                                    this.urgency[2].value = 1 + company.nextDay / 100; });
     this.order = new OrderAdd();
     this.order.orderDetails = [];
-    this.order.urgency = 0;
+    this.order.urgency = 1;
     this.filteredOptions = this.myControl.valueChanges
       .pipe(
         startWith<string | Cloth>(''),
@@ -84,46 +88,53 @@ getClient(): void {
     this.orderdetails.clothName = this.cloth.name;
     this.orderdetails.jobOrderId = this.order.id;
     if (this.orderdetails.orderType == 4) {
-      this.orderdetails.amount = this.cloth.drycleanRate * this.orderdetails.quantity;
+      this.orderdetails.amount = this.order.urgency * this.cloth.drycleanRate * this.orderdetails.quantity;
     } else if (this.orderdetails.orderType == 5 ) {
-      this.orderdetails.amount = this.cloth.ironingRate * this.orderdetails.quantity;
+      this.orderdetails.amount = this.order.urgency * this.cloth.ironingRate * this.orderdetails.quantity;
     } else if (this.orderdetails.orderType == 6 ) {
-      this.orderdetails.amount = this.cloth.laundryRate * this.orderdetails.quantity;
+      this.orderdetails.amount = this.order.urgency * this.cloth.laundryRate * this.orderdetails.quantity;
     } else {
       this.orderdetails.amount = 0;
     }
     if (this.cloth.name.includes('weight') === true) {
         switch (true) {
           case this.orderdetails.orderType == 0 :
-            this.orderdetails.amount = this.cloth.laundryRate * this.orderdetails.quantity; //w&f
+            this.orderdetails.amount = this.order.urgency * this.cloth.laundryRate * this.orderdetails.quantity; // w&f
             break;
           case this.orderdetails.orderType == 1:
-            this.orderdetails.amount = (this.cloth.laundryRate + this.cloth.ironingRate) * this.orderdetails.quantity; //w&i
+            this.orderdetails.amount = (this.order.urgency * this.cloth.laundryRate + this.cloth.ironingRate)
+                                                                                   * this.orderdetails.quantity; // w&i
             break;
          case this.orderdetails.orderType == 2:
-            this.orderdetails.amount = this.cloth.drycleanRate * this.orderdetails.quantity; //pw&f
+            this.orderdetails.amount = this.order.urgency * this.cloth.drycleanRate * this.orderdetails.quantity; // pw&f
             break;
          case this.orderdetails.orderType == 3:
-            this.orderdetails.amount = (this.cloth.drycleanRate + this.cloth.ironingRate) * this.orderdetails.quantity; //pw&i
+            this.orderdetails.amount = (this.order.urgency * this.cloth.drycleanRate + this.cloth.ironingRate)
+                                                                                    * this.orderdetails.quantity; // pw&i
             break;
         }
     }
     this.order.orderDetails.push(this.orderdetails);
-    console.log(this.orderdetails.toString());
     this.dataSource.data = this.order.orderDetails;
     this.order.amount = 0;
     this.order.orderDetails.forEach(item => this.order.amount += item.amount);
-    this.order.tax = this.order.amount* 0.18;
-    this.order.total= this.order.amount+this.order.tax;
+    this.order.tax = this.order.amount * 0.18;
+    this.order.total = this.order.amount + this.order.tax;
     this.order.totalQuantity = 0;
     this.order.orderDetails.forEach(item => {
-      if(item.clothName !=='weight')
-        {
-      this.order.totalQuantity += item.quantity}});
+      if (item.clothName !== 'weight') {
+      this.order.totalQuantity += item.quantity; }});
     this.orderdetails = new OrderDetails();
     this.cloth = new Cloth();
   }
   submitOrder(): void {
     this.clientService.postOrder(this.order).subscribe(data => {console.log(data); this.router.navigate(['/orders/' + data.id]); } );
+  }
+  urgencyChange(): void {
+    this.order.orderDetails = [];
+    this.order.amount = 0;
+    this.order.tax = 0;
+    this.order.total = 0;
+    this.order.totalQuantity = 0;
   }
 }

@@ -14,7 +14,7 @@ export class AuthService {
         
         return this.http.post<any>('/api/login',body,options).map(user => {
           if (user) {
-            localStorage.setItem('currentUser', JSON.stringify(user));
+            localStorage.setItem('currentUser', JSON.stringify({value: user, timestamp: new Date().getTime()}));
           }
         });
         }

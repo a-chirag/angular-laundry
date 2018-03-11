@@ -1,4 +1,4 @@
-<mat-card class="col-md-offset-2 col-md-8 col-xs-12 col-sm-12">
+<mat-card class="col-md-offset-2 col-md-8 col-xs-12 col-sm-12" *ngIf="companydetails">
 <form class="example-form">
 	<mat-form-field class="col-md-12 col-sm-12 col-xs-12">
       <input matInput placeholder="Company Name" type="text" [(ngModel)]="companydetails.name" name="name">
