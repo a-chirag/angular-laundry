@@ -7,6 +7,15 @@
 .add-card{
   margin-top: 20px;
 }
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+.add-but{
+	padding: 0;
+    margin: 0;
+    margin-bottom: 21px;
+}
 .mat-form-field{
 	padding: 0px !important;
 }
@@ -26,4 +35,7 @@
 .status{
 	background-color: #0001d4;
 	color: white;
+}
+td{
+	padding:0;
 }

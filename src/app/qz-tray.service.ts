@@ -54,16 +54,17 @@ this.config = qz.configs.create(printer);
     data.push({ type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: sprintf('%-25s %3d', 'Total Units   :   ', order.totalQuantity) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
-    data.push({ type: 'raw', data: sprintf('%-25s %3d', 'Total   :   ', order.amount) + '\n',
+    data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Total   :   ', order.amount) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
-    data.push({ type: 'raw', data: sprintf('%-25s %3d', 'Taxes   :   ', order.tax) + '\n',
+    data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'CGST@9%   :   ', order.tax / 2) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
-    data.push({ type: 'raw', data: sprintf('%-25s %3d', 'Total Payable   :   ', order.total) + '\n',
+    data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'SGST@9%   :   ', order.tax / 2) + '\n',
+       options: { language: 'ESCPOS', dotDensity: 'single' }  });
+    data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Total Payable   :   ', order.total) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: sprintf('%-15s %13s', 'Delivery Date   :   ', order.expectedDeliveryDate.toString()) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
-    data.push({ type: 'raw', data: this.company.termsAndCondition + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: this.company.termsAndCondition + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: this.company.thankingNote + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: '\n\n\n\n\n\n\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
@@ -74,7 +75,7 @@ this.config = qz.configs.create(printer);
     return Observable.throw(error);
   }
   toPrint(or: OrderDetails): string {
-    return sprintf('%-25s %-9d %3d',
+    return sprintf('%-25s %-9d %3.2f',
                   or.clothName,
                   or.quantity,
                   or.amount);

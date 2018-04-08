@@ -12,6 +12,7 @@ import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {Company} from '../company';
+import {sprintf} from 'sprintf-js';
 @Component({
   selector: 'app-add-order',
   templateUrl: './add-order.component.html',
@@ -31,6 +32,7 @@ contactNo: string;
 ];
   @ViewChild(MatSort) sort: MatSort;
   orderdetails: OrderDetails = new OrderDetails();
+  weightdetails: OrderDetails = new OrderDetails();
   filteredOptions: Observable<Cloth[]>;
   myControl = new FormControl();
   options: Cloth[];
@@ -83,6 +85,36 @@ getClient(): void {
 
   displayFn(cloth?: Cloth): string | undefined {
     return cloth ? cloth.name : undefined;
+  }
+  addWeight(): void {
+    this.cloth = this.options.filter(option =>
+      option.name.toLowerCase().indexOf('weight') === 0)[0];
+    this.weightdetails.clothName = this.cloth.name;
+    this.weightdetails.jobOrderId = this.order.id;
+        switch (true) {
+          case this.weightdetails.orderType == 0 :
+            this.weightdetails.amount = this.order.urgency * this.cloth.laundryRate * this.weightdetails.quantity; // w&f
+            break;
+          case this.weightdetails.orderType == 1:
+            this.weightdetails.amount = (this.order.urgency * this.cloth.laundryRate + this.cloth.ironingRate)
+                                                                                   * this.weightdetails.quantity; // w&i
+            break;
+         case this.weightdetails.orderType == 2:
+            this.weightdetails.amount = this.order.urgency * this.cloth.drycleanRate * this.weightdetails.quantity; // pw&f
+            break;
+         case this.weightdetails.orderType == 3:
+            this.weightdetails.amount = (this.order.urgency * this.cloth.drycleanRate + this.cloth.ironingRate)
+                                                                                    * this.weightdetails.quantity; // pw&i
+            break;
+        }
+    this.order.orderDetails.push(this.weightdetails);
+    this.dataSource.data = this.order.orderDetails;
+    this.order.amount = 0;
+    this.order.orderDetails.forEach(item => this.order.amount += item.amount);
+    this.order.tax = this.order.amount * 0.18;
+    this.order.total = this.order.amount + this.order.tax;
+    this.weightdetails = new OrderDetails();
+    this.cloth= new Cloth();
   }
   addorder(): void {
     this.orderdetails.clothName = this.cloth.name;

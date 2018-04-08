@@ -26,7 +26,7 @@ export class ClientsDetailsComponent implements OnInit, AfterViewInit {
   zoom: number;
   @ViewChild('search')
   private searchElementRef: ElementRef;
-
+autocomplete: any;
   constructor(private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone,private route: ActivatedRoute,private router : Router, private clientService: ClientService) { 
   this.id = this.route.snapshot.paramMap.get('id');
@@ -34,7 +34,7 @@ export class ClientsDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.clientService.getClient(this.id).subscribe(client => this.client = client);
-    this.zoom = 14;
+    this.zoom = 18;
     this.searchControl = new FormControl();
     //this.setCurrentPosition();
   }
@@ -46,18 +46,18 @@ export class ClientsDetailsComponent implements OnInit, AfterViewInit {
   load()
   {
     this.mapsAPILoader.load().then(() => {
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+       this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
         types: ['address']
       });
-      autocomplete.addListener('place_changed', () => {
+      this.autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          let place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
           this.client.lat = place.geometry.location.lat();
           this.client.lng = place.geometry.location.lng();
-          this.zoom = 14;
+          this.zoom = 18;
         });
       });
     });
@@ -72,7 +72,7 @@ export class ClientsDetailsComponent implements OnInit, AfterViewInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.client.lat = position.coords.latitude;
         this.client.lng = position.coords.longitude;
-        this.zoom = 12;
+        this.zoom = 18;
       });
     }
   }

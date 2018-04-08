@@ -12,7 +12,7 @@ export class AuthGuardService implements CanActivate {
       let data = JSON.parse(localStorage.getItem('currentUser'));
       let user = data.value;
       let now = new Date().getTime();
-      if ((now - data.timestamp) > 300000) {
+      if ((now - data.timestamp) > 600000) {
         this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
          return false;
       }

@@ -10,31 +10,53 @@
 		<mat-card-actions> 
 	<mat-form-field class="col-md-6 col-xs-12"> <input
 					matInput [matDatepicker]="picker1" placeholder="Delivery Date"
-					[(ngModel)]="order.expectedDeliveryDate"> <mat-datepicker-toggle
+					[(ngModel)]="order.expectedDeliveryDate" required> <mat-datepicker-toggle
 					matSuffix [for]="picker1"></mat-datepicker-toggle> <mat-datepicker
 					#picker1></mat-datepicker> </mat-form-field>
 				<mat-form-field class="col-md-6 col-xs-12"> <mat-select
-					placeholder="Type" [(ngModel)]="order.urgency" name="urgency" (change)="urgencyChange()">
+					placeholder="Urgency" [(ngModel)]="order.urgency" name="urgency" (change)="urgencyChange()">
 				<mat-option *ngFor="let type of urgency" [value]="type.value">
 				{{ type.viewValue }} </mat-option> </mat-select> </mat-form-field>
-
-	<form class="example-form">
-	<mat-form-field class="col-md-3 col-xs-12"> <input type="text"
-		placeholder="Item" aria-label="Item" matInput
-		[formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="cloth"
-		name="clothName"> <mat-autocomplete #auto="matAutocomplete"
-		[displayWith]="displayFn"> <mat-option
-		*ngFor="let option of filteredOptions | async" [value]="option">
-	{{ option.name }} </mat-option> </mat-autocomplete> </mat-form-field> <mat-form-field class="col-md-3 col-xs-12">
+<div class="exapmle-container">
+	<form class="example-form" #form="ngForm">
+	
+	<mat-form-field class="col-md-3 col-xs-12"> 
+	<input type="text" placeholder="Item" aria-label="Item" matInput	[formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="cloth"
+		name="clothName" required> 
+		<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
+	 		<mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option.name }} </mat-option>
+		</mat-autocomplete> 
+	</mat-form-field>
+	
+	<mat-form-field class="col-md-3 col-xs-12">
 	<input matInput placeholder="Quantity" type="number"
-		[(ngModel)]="orderdetails.quantity" name="quantity" value="1">
+		[(ngModel)]="orderdetails.quantity" name="quantity" value="1" required>
 	</mat-form-field> <mat-form-field class="col-md-3 col-xs-12"> <mat-select
 		placeholder="Type" [(ngModel)]="orderdetails.orderType"
-		name="ordertype"> <mat-option *ngFor="let type of types"
+		name="ordertype" required> <mat-option *ngFor="let type of types"
 		[value]="type.value"> {{ type.viewValue }} </mat-option> </mat-select> </mat-form-field>
-	<button mat-button (click)="addorder()">ADD</button>
+	<button [disabled]="!form.valid" mat-button (click)="addorder();form.reset()" style="padding:  0;
+    margin:  0;
+    margin-bottom: 21px;
+	">ADD</button>
 	<br>
 </form>
+<form class="example-form" #weightform="ngForm">
+
+	<mat-form-field class="col-md-3 col-xs-12">
+	<input matInput placeholder="Weight in KG" type="number"
+		[(ngModel)]="weightdetails.quantity" name="quantity" value="1" required>
+	</mat-form-field> <mat-form-field class="col-md-3 col-xs-12"> <mat-select
+		placeholder="Type" [(ngModel)]="weightdetails.orderType"
+		name="ordertype" required> <mat-option *ngFor="let type of types"
+		[value]="type.value"> {{ type.viewValue }} </mat-option> </mat-select> </mat-form-field>
+	<button [disabled]="!weightform.valid" mat-button (click)="addWeight();weightform.reset()" style="padding:  0;
+    margin:  0;
+    margin-bottom: 21px;
+	">ADD</button>
+	<br>
+</form>
+</div>
 </mat-card-actions>
 <mat-card-footer class="col-12">
 <button mat-button (click)="submitOrder()">Submit</button>
@@ -65,7 +87,7 @@
 	{{order.clothName}} </mat-cell> </ng-container> <!-- Name Column --> <ng-container
 		matColumnDef="amount"> <mat-header-cell
 		*matHeaderCellDef mat-sort-header> Amount </mat-header-cell> <mat-cell
-		*matCellDef="let order"> {{order.amount}} </mat-cell> </ng-container> <!-- Weight Column -->
+		*matCellDef="let order"> {{order.amount|number:'1.2-2'}} </mat-cell> </ng-container> <!-- Weight Column -->
 	<ng-container matColumnDef="quantity"> <mat-header-cell
 		*matHeaderCellDef mat-sort-header> Quantity </mat-header-cell> <mat-cell
 		*matCellDef="let order"> {{order.quantity}} </mat-cell> </ng-container> <!-- Symbol Column -->
@@ -76,8 +98,9 @@
 		*matHeaderRowDef="displayedColumns"></mat-header-row> <mat-row
 		*matRowDef="let row; columns: displayedColumns;"></mat-row> </mat-table> </mat-card-content> <mat-card-actions>
 	<table class="table">
-		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.amount}}</td></tr>
-		<tr><td align="right">Gst @ 18%:</td><td> {{order.tax|number:'1.2-2'}}</td></tr>
+		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
+		<tr><td align="right">CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
+		<tr><td align="right">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>
 	</table>
 	</mat-card-actions> </mat-card>

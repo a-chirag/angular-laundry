@@ -9,7 +9,7 @@
  <td>{{user.username}}</td>
  <td>
  <mat-chip-list>
-    <mat-chip [class.status]="user.authorities === 'ROLE_USER'" color="warm" selected="true" (click)="changeAuthority(this,'ROLE_USER')">User</mat-chip>
+    <mat-chip [class.status]="user.authorities === 'ROLE_USER'" color="warm" selected="true" (click)="changeAuthority(user,'ROLE_USER')">User</mat-chip>
     <mat-chip [class.status]="user.authorities === 'ROLE_STAFF'" color="warm" selected="true" (click)="changeAuthority(user,'ROLE_STAFF')">Staff</mat-chip>
     <mat-chip [class.status]="user.authorities === 'ROLE_DELIVERY'" color="warm" selected="true" (click)="changeAuthority(user, 'ROLE_DELIVERY')">Delivery</mat-chip>
     </mat-chip-list>

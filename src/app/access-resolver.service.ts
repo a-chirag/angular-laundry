@@ -16,7 +16,7 @@ export class AccessResolverService {
     }
   }
   staff(url: string): boolean {
-    if (url == '/settings') {
+    if (url == '/settings' || url == '/manageUser' || url == '/addUser' ) {
       return false;
     } else {
       return true;

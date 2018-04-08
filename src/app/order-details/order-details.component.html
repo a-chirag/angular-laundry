@@ -1,8 +1,20 @@
 <div class="col-md-8 col-12">
-<mat-card class="example-card" id = "bill" *ngIf="order">
+<mat-card class="example-card" id = "bill" *ngIf="order && client">
   <mat-card-header>
     <mat-card-title>{{order.clientName}}</mat-card-title>
-    <mat-card-subtitle>{{order.contactNo}}</mat-card-subtitle>
+    <mat-card-subtitle>
+	<table>
+		<tr>
+			<td>{{client.contactNo}}</td>
+		</tr>
+		<tr>
+			<td>Bill No.: {{order.id}}</td>
+		</tr>
+		<tr>
+			<td>Date: {{order.submissionDate}}</td>
+		</tr>
+	</table>
+	</mat-card-subtitle>
     <mat-chip-list>
     <mat-chip [class.status]="order.deliveryStatus === 0" color="warm" selected="true" (click)="changeStatus(0)">Processing</mat-chip>
     <mat-chip [class.status]="order.deliveryStatus === 1" color="warm" selected="true" (click)="changeStatus(1)">Delivery</mat-chip>
@@ -14,6 +26,8 @@
   </mat-card-header>
   <mat-card-content>
     Expected Delivery: {{order.expectedDeliveryDate}}
+    <br>
+    Address: {{client.address}}
     <div class="example-container mat-elevation-z8 col-1-2">
 <mat-table #table [dataSource]="dataSource" matSort>
 
@@ -29,7 +43,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="amount">
       <mat-header-cell *matHeaderCellDef  mat-sort-header> Amount </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.amount}} </mat-cell>
+      <mat-cell *matCellDef="let order"> {{order.amount|number:'1.2-2'}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
@@ -50,8 +64,9 @@
   </div>
   </mat-card-content>
   <table class="table">
-		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.amount}}</td></tr>
-		<tr><td align="right">Gst @ 18%:</td><td> {{order.tax|number:'1.2-2'}}</td></tr>
+		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
+		<tr><td align="right">CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
+		<tr><td align="right">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>
 		<tr><td><button *ngIf="order.deliveryStatus === 1" class="Navigation" style="float: left;" mat-button (click)="navigation()">Navigation</button>
         <button *ngIf="order.deliveryStatus === 0" style="float: left;" mat-button (click)="cancelOrder()">Cancel Order</button></td><td></td></tr>

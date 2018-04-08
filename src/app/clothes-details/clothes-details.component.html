@@ -1,11 +1,11 @@
-<mat-card class="example-card col-md-8 col-md-offset-2 col-xs-12">
+<mat-card class="example-card col-md-8 col-md-offset-2 col-xs-12" *ngIf="cloth">
 <form class="example-form">
 <mat-form-field class="col-md-12 col-xs-12">
-      <input matInput placeholder="Category" type="text" name="category" value={{category[cloth.categoryId].viewValue}} readonly="readonly">
+      <input matInput placeholder="Category" type="text" name="category" value={{category[cloth.categoryId-1].viewValue}} readonly="readonly">
     </mat-form-field>
 
 <mat-form-field class="col-md-12 col-xs-12">
-      <input matInput placeholder="Name" type="text" [(ngModel)]="cloth.name" name="name" readonly="readonly">
+      <input matInput placeholder="Name" type="text" [(ngModel)]="cloth.name" name="name">
     </mat-form-field>
     
 <mat-form-field class="col-md-4 col-xs-12">

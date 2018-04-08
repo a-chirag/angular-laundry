@@ -21,7 +21,6 @@ export class AddClothComponent implements OnInit {
 
   ngOnInit() {
     this.clothDetails = new Cloth();
-    this.clientService.getClothId().subscribe(id => this.clothDetails.id = id);
   }
   submitCloth(): void {
     this.clientService.postCloth(this.clothDetails).subscribe(data => {console.log(data); this.router.navigate(['/']);});

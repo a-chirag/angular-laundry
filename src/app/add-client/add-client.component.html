@@ -1,42 +1,42 @@
 <div class="col-md-offset-2 col-md-8 col-sm-12">
 <mat-card class="example-card">
-<form class="example-full-width">
+<form class="example-full-width" #form="ngForm">
 <mat-form-field class="example-full-width">
-      <input matInput placeholder="Full Name" type="text" [(ngModel)]="clientdetails.fullname" name="fullname">
+      <input matInput placeholder="Full Name" type="text" [(ngModel)]="clientdetails.fullname" name="fullname" required>
 </mat-form-field>
 
     <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Address" [(ngModel)]="clientdetails.address" name="address"></textarea>
+      <textarea matInput placeholder="Address" [(ngModel)]="clientdetails.address" name="address" required></textarea>
     </mat-form-field>
       <table class="example-full-width" cellspacing="0"><tr>
     <td><mat-form-field class="example-full-width">
       <input matInput placeholder="Search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search [formControl]="searchControl">
     </mat-form-field></td>
   </tr><tr><td>
-    <agm-map [latitude]="clientdetails.lat" [longitude]="clientdetails.lng" [scrollwheel]="false" [zoom]="zoom" [mapTypeControl]="true" [fullscreenControl]="true" (mapClick)="placeMarker($event)">
+    <agm-map [latitude]="clientdetails.lat" [longitude]="clientdetails.lng" [scrollwheel]="false" [zoom]="zoom" [mapTypeControl]="true" [fullscreenControl]="true" (boundsChange)="MapReady($event)" (mapDblClick)="placeMarker($event)">
   <agm-marker [latitude]="clientdetails.lat" [longitude]="clientdetails.lng"></agm-marker>
 </agm-map>
 </td>
 </tr>
 </table>
 <mat-form-field class="col-md-4 col-xs-12">
-      <input matInput placeholder="Contact no." type="text" [(ngModel)]="clientdetails.contactNo" name="contactNo">
+      <input matInput placeholder="Contact no." type="text" [(ngModel)]="clientdetails.contactNo" name="contactNo" required>
     </mat-form-field>
 <mat-form-field class="col-md-4 col-xs-12">
-  <mat-select placeholder="Sex" [(ngModel)]="clientdetails.sex" name="sex">
+  <mat-select placeholder="Sex" [(ngModel)]="clientdetails.sex" name="sex" required>
     <mat-option *ngFor="let s of sex" [value]="s.value" >
       {{ s.viewValue }}
     </mat-option>
   </mat-select>
 </mat-form-field>
 <mat-form-field class="col-md-4 col-xs-12">
-  <mat-select placeholder="Age" [(ngModel)]="clientdetails.ageRange" name="ageRange">
+  <mat-select placeholder="Age" [(ngModel)]="clientdetails.ageRange" name="ageRange" required>
     <mat-option *ngFor="let age of ageRange" [value]="age.value" >
       {{ age.viewValue }}
     </mat-option>
   </mat-select>
 </mat-form-field>
   </form>
-<button mat-button (click)="submitClient()">Submit</button>
+<button mat-raised-button color="primary" (click)="submitClient()" [disabled]="!form.valid">Submit</button>
 </mat-card>
 </div>

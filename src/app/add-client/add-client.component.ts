@@ -4,7 +4,7 @@ import {AddClient} from '../addclient';
 import {DatePipe} from '@angular/common';
 import {ActivatedRoute, Router} from '@angular/router';
 import {BrowserModule} from '@angular/platform-browser';
-import {AgmCoreModule, MapsAPILoader} from '@agm/core';
+import {AgmCoreModule, MapsAPILoader, GoogleMapsAPIWrapper} from '@agm/core';
 import {FormControl} from '@angular/forms';
 import {} from '@types/googlemaps';
 
@@ -32,36 +32,36 @@ export class AddClientComponent implements OnInit {
   constructor(private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone, private clientService: ClientService, private route: ActivatedRoute,
     private router: Router) {}
-
+autocomplete: any;
   ngOnInit() {
-    this.zoom = 12;
+    this.zoom = 16;
     this.searchControl = new FormControl();
     this.setCurrentPosition();
     this.clientdetails = new AddClient();
     this.clientdetails.regDate = new Date();
-    this.clientdetails.lat = 18.5204303;
-    this.clientdetails.lng = 73.8567437;
+    this.clientdetails.lat = 22.2267825;
+    this.clientdetails.lng = 84.8486653;
     this.clientService.getClientId().subscribe(id => this.clientdetails.clientId = id);
     this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ['address']
-      });
-      autocomplete.addListener('place_changed', () => {
+       this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
+      this.autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          const place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
           if (place.geometry === undefined || place.geometry === null) {
             return;
           }
           this.clientdetails.lat = place.geometry.location.lat();
           this.clientdetails.lng = place.geometry.location.lng();
-          this.zoom = 12;
+          this.zoom = 15;
         });
       });
     });
   }
   submitClient(): void {
     this.clientService.postAddClient(this.clientdetails).subscribe(data => {console.log(data); this.router.navigate(['/']);});
-
+  }
+  MapReady($event){
+      this.autocomplete.setBounds($event);
   }
   placeMarker($event) {
     this.clientdetails.lat = $event.coords.lat;
@@ -75,13 +75,12 @@ export class AddClientComponent implements OnInit {
       navigator.geolocation.getCurrentPosition((position) => {
         this.clientdetails.lat = position.coords.latitude;
         this.clientdetails.lng = position.coords.longitude;
-        this.zoom = 12;
+        this.zoom = 18;
       });
-    }
-    else{
-      this.clientdetails.lat = 18.5134803;
-        this.clientdetails.lng = 73.92215250000004;
-        this.zoom = 12;
+    } else{
+      this.clientdetails.lat = 22.2267825;
+        this.clientdetails.lng = 84.8486653;
+        this.zoom = 18;
     }
   }
 
