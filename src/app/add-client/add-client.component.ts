@@ -41,7 +41,6 @@ autocomplete: any;
     this.clientdetails.regDate = new Date();
     this.clientdetails.lat = 22.2267825;
     this.clientdetails.lng = 84.8486653;
-    this.clientService.getClientId().subscribe(id => this.clientdetails.clientId = id);
     this.mapsAPILoader.load().then(() => {
        this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement);
       this.autocomplete.addListener('place_changed', () => {

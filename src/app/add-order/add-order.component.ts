@@ -74,7 +74,6 @@ contactNo: string;
 getClient(): void {
   this.clientService.getClient(this.contactNo).subscribe(client => {this.client = client;
                                                             this.order.clientId = client.clientId;
-                                                            this.order.id = client.count.toLocaleString();
                                                             this.order.expectedDeliveryDate = new Date(); });
 }
 
@@ -90,7 +89,6 @@ getClient(): void {
     this.cloth = this.options.filter(option =>
       option.name.toLowerCase().indexOf('weight') === 0)[0];
     this.weightdetails.clothName = this.cloth.name;
-    this.weightdetails.jobOrderId = this.order.id;
         switch (true) {
           case this.weightdetails.orderType == 0 :
             this.weightdetails.amount = this.order.urgency * this.cloth.laundryRate * this.weightdetails.quantity; // w&f
@@ -118,7 +116,6 @@ getClient(): void {
   }
   addorder(): void {
     this.orderdetails.clothName = this.cloth.name;
-    this.orderdetails.jobOrderId = this.order.id;
     if (this.orderdetails.orderType == 4) {
       this.orderdetails.amount = this.order.urgency * this.cloth.drycleanRate * this.orderdetails.quantity;
     } else if (this.orderdetails.orderType == 5 ) {

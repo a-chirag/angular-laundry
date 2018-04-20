@@ -86,7 +86,7 @@ this.config = qz.configs.create(printer);
     this.config = qz.configs.create(printer);
     let data = [
  'GAP 0,0\n',
- 'SIZE 2,' + totalQuantity + '\n',
+ 'SIZE 35 mm,' + totalQuantity + '\n',
  'DIRECTION 0\n',
  'CLS\n'
         ];
@@ -110,13 +110,13 @@ this.config = qz.configs.create(printer);
    return Observable.fromPromise(qz.print(this.config, data))
   }
   clothname(position: number, cloth: string): string {
-  return 'TEXT 50,' + position + ',"2",0,2,2,"' + cloth + '"\n';
+  return 'TEXT 50,' + position + ',"2",0,1,1,"' + cloth + '"\n';
 }
 companyTitle(position: number): string {
-  return 'TEXT 50,' + position + ',"2",0,2,2,"' + this.company.name + '"\n';
+  return 'TEXT 50,' + position + ',"2",0,1,1,"' + this.company.name + '"\n';
 }
   barcode(position: number, id: string): string {
-    return 'BARCODE 50,' + position + ',"128",100,2,0,3,30,"' + id + '"\n';
+    return 'BARCODE 50,' + position + ',"128",60,2,0,3,30,"' + id + '"\n';
   }
   orderType(position: number, orderT: number): string {
     return 'TEXT 50,' + position + ',"2",0,1,1,"' + this.types[orderT].viewValue + '"\n';
