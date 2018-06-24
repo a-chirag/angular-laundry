@@ -18,7 +18,7 @@ displayedColumns = ['clientId',
     'fullname',
 'contactNo',
 'sex',
-'address'];
+'address','addOrder'];
   dataSource: any;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;

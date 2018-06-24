@@ -18,6 +18,10 @@ export class AddClientComponent implements OnInit {
     {value: '0', viewValue: 'Male'},
     {value: '1', viewValue: 'Female'}
   ];
+  igst = [
+    {value: '0', viewValue: 'SGST'},
+    {value: '1', viewValue: 'IGST'}
+  ];
   ageRange = [
     {value: '0', viewValue: 'Below 25'},
     {value: '1', viewValue: '25-40'},
@@ -25,6 +29,7 @@ export class AddClientComponent implements OnInit {
   ];
   clientdetails: AddClient;
   searchControl: FormControl;
+  submitDisabled= false;
   zoom: number;
   @ViewChild('search')
   public searchElementRef: ElementRef;
@@ -57,6 +62,7 @@ autocomplete: any;
     });
   }
   submitClient(): void {
+    this.submitDisabled = true;
     this.clientService.postAddClient(this.clientdetails).subscribe(data => {console.log(data); this.router.navigate(['/']);});
   }
   MapReady($event){

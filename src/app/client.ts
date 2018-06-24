@@ -10,4 +10,6 @@ export class Client {
   address: string;
   lat: number;
   lng: number;
+  gstNo: string;
+  igst: number;
 }

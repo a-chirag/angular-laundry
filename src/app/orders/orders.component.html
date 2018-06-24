@@ -39,7 +39,7 @@
     </ng-container>
      <ng-container matColumnDef="amount">
       <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.amount|number:'1.2-2'}} </mat-cell>
+      <mat-cell *matCellDef="let order"> {{order.total|number:'1.2-2'}} </mat-cell>
     </ng-container>
      <ng-container matColumnDef="deliveryStatus">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>

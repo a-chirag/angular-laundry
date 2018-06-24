@@ -39,11 +39,14 @@
     </ng-container>
      <ng-container matColumnDef="amount">
       <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.amount}} </mat-cell>
+      <mat-cell *matCellDef="let order"> {{order.total|number:'1.2-2'}} </mat-cell>
     </ng-container>
      <ng-container matColumnDef="deliveryStatus">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{types[order.deliveryStatus].viewValue}} </mat-cell>
+      <mat-cell *matCellDef="let order"> {{types[order.deliveryStatus].viewValue}}
+        <mat-chip [class.status]="true" color="warm" selected="true" (click)="qztray.printData('Receipt',order).subscribe()">Receipt</mat-chip>
+      </mat-cell>
+
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

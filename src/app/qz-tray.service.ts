@@ -19,8 +19,9 @@ export class QzTrayService {
     {value: '2', viewValue: 'Premium W&F'},
     {value: '3', viewValue: 'Premium W&I'},
     {value: '4', viewValue: 'Dry Cleaning'},
-    {value: '5', viewValue: 'Ironing'},
-    {value: '6', viewValue: 'Polishing'}
+    {value: '5', viewValue: 'Steam Ironing'},
+    {value: '6', viewValue: 'Polishing'},
+    {value: '7', viewValue: 'Ironing'}
   ];
   yPosition: number;
   barcodePosition: number;
@@ -34,6 +35,8 @@ export class QzTrayService {
 this.config = qz.configs.create(printer);
     let data = [
     { type: 'raw', data: '\x1B' + '\x40' + '\x1B' + '\x61' + '\x31', options: { language: 'ESCPOS', dotDensity: 'single' }  },
+      { type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
+      { type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: this.company.name + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Website : ' + this.company.website + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Email : ' + this.company.email + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
@@ -41,11 +44,19 @@ this.config = qz.configs.create(printer);
       { type: 'raw', data: 'Customer Care : ' + this.company.phoneNo + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'GST No. : ' + this.company.gstNo + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Submission Date: ' + order.submissionDate + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
-      { type: 'raw', data: 'Bill No. :' + order.id + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
-{ type: 'raw', data: sprintf('%-22s %-9s %3s', 'Item', 'Quantity', 'Amount') + '\n',
-   options: { language: 'ESCPOS', dotDensity: 'single' }  }
+      { type: 'raw', data: 'Bill No. :' + order.id + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
+      { type: 'raw', data: 'Name :' + order.clientName + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
+      { type: 'raw', data: 'Contact No. :' + order.contactNo+ '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
+      { type: 'raw', data: 'Address :' + order.address + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
     ];
+    if(order.gstNo){
+      data.push({ type: 'raw', data: 'Client GST No. :' + order.gstNo + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
+      data.push({ type: 'raw', data: 'State Code :' + 21 + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
+    }
+    data.push({ type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
+    data.push({ type: 'raw', data: sprintf('%-22s %-9s %3s', 'Item', 'Quantity', 'Amount') + '\n',
+      options: { language: 'ESCPOS', dotDensity: 'single' }  });
     order.orderDetails.forEach(or => {
       let dat = { type: 'raw', data: '' , options: { language: 'ESCPOS', dotDensity: 'single' }  };
       dat.data = dat.data.concat(this.toPrint(or) + '\n');
@@ -54,8 +65,18 @@ this.config = qz.configs.create(printer);
     data.push({ type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: sprintf('%-25s %3d', 'Total Units   :   ', order.totalQuantity) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
-    data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Total   :   ', order.amount) + '\n',
+
+    if(order.coupon){
+      data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Amount   :   ', this.actualAmount(order)) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
+      data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Discount   :   ', this.discount(order)) + '\n',
+       options: { language: 'ESCPOS', dotDensity: 'single' }  });
+      data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Total   :   ', order.amount) + '\n',
+       options: { language: 'ESCPOS', dotDensity: 'single' }  });
+    } else {
+      data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Total   :   ', order.amount) + '\n',
+       options: { language: 'ESCPOS', dotDensity: 'single' }  });
+    }
     data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'CGST@9%   :   ', order.tax / 2) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'SGST@9%   :   ', order.tax / 2) + '\n',
@@ -69,20 +90,21 @@ this.config = qz.configs.create(printer);
     data.push({ type: 'raw', data: this.company.thankingNote + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: '\n\n\n\n\n\n\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: '\x1B' + '\x69', options: { language: 'ESCPOS', dotDensity: 'single' }  });
+    //console.log(data );
      return Observable.fromPromise(qz.print(this.config, data));
 }
   errorHandler(error: any): Observable<any> {
     return Observable.throw(error);
   }
   toPrint(or: OrderDetails): string {
-    return sprintf('%-25s %-9d %3.2f',
+    return sprintf('%-25s %-5.2f %3.2f',
                   or.clothName,
                   or.quantity,
                   or.amount);
   }
   printBarcode(printer: string, order: Order): Observable<any> {
     this.yPosition = 10;
-    let totalQuantity = order.totalQuantity * 1.5 + 1;
+    let totalQuantity = order.totalQuantity * 1.6 + 2;
     this.config = qz.configs.create(printer);
     let data = [
  'GAP 0,0\n',
@@ -102,6 +124,8 @@ this.config = qz.configs.create(printer);
       data.push(this.orderType(this.yPosition, or.orderType));
       this.yPosition = this.yPosition + 30;
         data.push(this.deliveryDate(this.yPosition, order.expectedDeliveryDate.toString()));
+        this.yPosition = this.yPosition + 30;
+        data.push(this.totalQuant(this.yPosition, order.totalQuantity.toString()));
       this.yPosition = this.yPosition + 70;
       console.log(data.toString());
      } }
@@ -124,5 +148,20 @@ companyTitle(position: number): string {
   deliveryDate(position: number, date: string): string {
     console.log(date);
      return 'TEXT 50,' + position + ',"2",0,1,1,"' + date + '"\n';
+  }
+  totalQuant(position: number, quant: string): string {
+    console.log(quant);
+    quant= "Quantity "+ quant;
+    return 'TEXT 50,' + position + ',"2",0,1,1,"' + quant + '"\n';
+  }
+  actualAmount(order: Order): number{
+    let amount =0;
+    order.orderDetails.forEach(item => amount += item.amount)
+    return amount;
+  }
+  discount(order: Order): number{
+    let disc = order.amount;
+    order.orderDetails.forEach(item => disc -= item.amount)
+    return -disc;
   }
 }

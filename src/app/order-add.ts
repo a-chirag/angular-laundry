@@ -11,8 +11,19 @@ deliveryStatus: number;
   orderDetails: OrderDetails[];
   tax: number;
   total: number;
+  coupon: string;
   constructor() {
     this.deliveryStatus = 0;
     this.submissionDate = (new Date());
+  }
+  discount(): number{
+    let disc = this.amount;
+    this.orderDetails.forEach(item => disc -= item.amount)
+    return -disc;
+  }
+  actualAmount(): number{
+    let amount =0;
+    this.orderDetails.forEach(item => amount += item.amount)
+    return amount;
   }
 }

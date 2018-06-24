@@ -17,16 +17,22 @@ private ordersUrl = 'api/jobs';
   getPendingDelivery (): Observable<Order[]> {
   return this.http.get<Order[]>(this.ordersUrl+'/delivery');
 }
+   getUnpaidOrder (): Observable<Order[]> {
+  return this.http.get<Order[]>(this.ordersUrl+'/unpaid');
+}
 getOrder (id: string): Observable<Order> {
   return this.http.get<Order>(this.ordersUrl + '/' + id);
 }
 
 deleteOrder (id: string): any {
-  return this.http.delete<Order>(this.ordersUrl + '/' + id);
+  return this.http.put<Order>(this.ordersUrl + '/' + id, 3);
 }
 
 changeStatus(status: number, id: string): Observable<Order> {
  return this.http.put<Order>(this.ordersUrl + '/' + id, status);
+}
+  changePaid(paid: number, id: string): Observable<Order> {
+ return this.http.put<Order>(this.ordersUrl + '/paid/' + id, paid);
 }
   
 

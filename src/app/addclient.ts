@@ -8,4 +8,6 @@ export class AddClient {
   address: string;
   lat: number;
   lng: number;
+  gstNo: string;
+  igst: number;
 }

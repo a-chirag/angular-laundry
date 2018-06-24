@@ -32,8 +32,8 @@ displayedColumns = ['id',
   constructor(private clientService: ClientService) { }
 
   ngOnInit() {
-    this.getClients();
     this.dataSource = new MatTableDataSource<Cloth>();
+    this.getClients();
   }
    ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

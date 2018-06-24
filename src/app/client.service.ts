@@ -14,6 +14,7 @@ export class ClientService {
 private clientUrl = 'api/clients';
   private userUrl = 'api/users';
   private clothesUrl = 'api/clothes';
+  private clothes: any;
   constructor(private http: HttpClient) {}
 
   getClients (): Observable<Client[]> {
@@ -29,12 +30,21 @@ getClient (id: string): Observable<Client> {
   return this.http.get<Company>('/api/settings');
 }
 getClothes(): Observable<Cloth[]> {
-  return this.http.get<Cloth[]>('/api/clothes/all');
+  if(this.clothes==null){
+    this.http.get<Cloth[]>('/api/clothes/all').subscribe(clothes=> this.clothes=clothes);
+    return this.http.get<Cloth[]>('/api/clothes/all');
+  } else {
+    return new Observable<Cloth[]>(observer => {
+        observer.next(this.clothes);
+        observer.complete();
+    })
+  }
 }
   postOrder(order: OrderAdd): Observable<Order> {
     return this.http.post<Order>('/api/jobs', order);
   }
   postCloth(cloth: Cloth): Observable<Cloth> {
+    this.clothes = null;
     return this.http.post<Cloth>('/api/clothes', cloth);
   }
   postClient(client: Client): Observable<Client> {
@@ -70,6 +80,6 @@ getClothes(): Observable<Cloth[]> {
   putUser(user: User): Observable<User> {
     return this.http.put<User>(this.userUrl+'/add', user);
   }
-  
+
 }
 

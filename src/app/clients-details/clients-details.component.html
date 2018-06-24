@@ -10,7 +10,7 @@
       <textarea matInput placeholder="Address" [(ngModel)]="client.address" name="address" value="client.address"></textarea>
     </mat-form-field>
 
- 
+
       <table class="col-md-12 col-xs-12" cellspacing="0"><tr>
     <td><mat-form-field class="col-md-12 col-xs-12">
       <input matInput placeholder="Search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search [formControl]="searchControl">
@@ -32,7 +32,16 @@
     <mat-form-field class="col-md-4 col-xs-12">
       <input matInput placeholder="Age" type="text" name="age" value={{ageRange[client.ageRange].viewValue}} readonly="readonly">
     </mat-form-field>
-
+  <mat-form-field class="col-md-4 col-xs-12">
+    <input matInput placeholder="GST NO" type="text" [(ngModel)]="client.gstNo" name="gstNo">
+  </mat-form-field>
+  <mat-form-field class="col-md-4 col-xs-12">
+    <mat-select placeholder="{{igst[client.igst].viewValue}} " [(ngModel)]="client.igst" name="igst">
+      <mat-option *ngFor="let s of igst" [value]="s.value" >
+        {{ s.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
 </form>
 <button mat-button (click)="updateClient()">Update</button>
 </mat-card>

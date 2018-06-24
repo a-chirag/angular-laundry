@@ -17,6 +17,10 @@ export class ClientsDetailsComponent implements OnInit, AfterViewInit {
     {value: '0', viewValue: 'Male'},
     {value: '1', viewValue: 'Female'}
   ];
+  igst = [
+    {value: '0', viewValue: 'SGST'},
+    {value: '1', viewValue: 'IGST'}
+  ];
   ageRange = [
     {value: '0', viewValue: 'Below 25'},
     {value: '1', viewValue: '25-40'},
@@ -28,7 +32,7 @@ export class ClientsDetailsComponent implements OnInit, AfterViewInit {
   private searchElementRef: ElementRef;
 autocomplete: any;
   constructor(private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone,private route: ActivatedRoute,private router : Router, private clientService: ClientService) { 
+    private ngZone: NgZone,private route: ActivatedRoute,private router : Router, private clientService: ClientService) {
   this.id = this.route.snapshot.paramMap.get('id');
   }
 

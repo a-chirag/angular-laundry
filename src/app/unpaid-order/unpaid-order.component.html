@@ -1,4 +1,4 @@
-<h2>Pending Delivery</h2>
+<h2>Unpaid Orders</h2>
 <div class="example-container mat-elevation-z8">
   <div class="example-header">
     <mat-form-field>
@@ -19,7 +19,7 @@
     <!-- Name Column -->
     <ng-container matColumnDef="clientname">
       <mat-header-cell *matHeaderCellDef  mat-sort-header> Name </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.clientName}} </mat-cell>
+      <mat-cell *matCellDef="let order" routerLink="/orders/{{order.id}}"> {{order.clientName}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
@@ -43,11 +43,14 @@
     </ng-container>
      <ng-container matColumnDef="deliveryStatus">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{types[order.deliveryStatus].viewValue}} </mat-cell>
+      <mat-cell *matCellDef="let order"> {{types[order.deliveryStatus].viewValue}}
+        <mat-slide-toggle [(ngModel)]="order.paid" (change)="ordersService.changePaid(order.paid==0?0:1, order.id).subscribe()" name="enabled">Paid</mat-slide-toggle>
+      </mat-cell>
+
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="/orders/{{row.id}}"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
   </mat-table>
   <mat-paginator #paginator
                  [pageSize]="10"

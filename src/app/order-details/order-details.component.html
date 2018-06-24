@@ -19,6 +19,7 @@
     <mat-chip [class.status]="order.deliveryStatus === 0" color="warm" selected="true" (click)="changeStatus(0)">Processing</mat-chip>
     <mat-chip [class.status]="order.deliveryStatus === 1" color="warm" selected="true" (click)="changeStatus(1)">Delivery</mat-chip>
     <mat-chip [class.status]="order.deliveryStatus === 2" color="warm" selected="true" (click)="changeStatus(2)">Completed</mat-chip>
+    <mat-chip [class.status]="order.paid==1" color="warm" selected="true" (click)="changePaid()">Paid</mat-chip>
     <mat-chip [class.status]="true" color="warm" selected="true" (click)="print()">Print Tag</mat-chip>
     <mat-chip [class.status]="true" color="warm" selected="true" (click)="printData()">Receipt</mat-chip>
     </mat-chip-list>
@@ -65,6 +66,8 @@
   </mat-card-content>
   <table class="table">
 		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
+		<tr *ngIf="order.coupon"><td align="right" >Discount:</td><td> {{discount()|number:'1.2-2'}}</td></tr>
+		<tr *ngIf="order.coupon"><td align="right">Final Amount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>

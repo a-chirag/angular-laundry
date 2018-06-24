@@ -42,9 +42,11 @@ import { LoginComponent } from './login/login.component';
 import { AccessResolverService } from './access-resolver.service';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { AddUserComponent } from './add-user/add-user.component';
+import { CouponService } from './coupon.service';
 import { UserDetailsComponent } from './user-details/user-details.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
+import { UnpaidOrderComponent } from './unpaid-order/unpaid-order.component';
 
 
 @NgModule({
@@ -65,7 +67,8 @@ import { MatSliderModule } from '@angular/material/slider';
     LoginComponent,
     AccessDeniedComponent,
     AddUserComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    UnpaidOrderComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +100,7 @@ import { MatSliderModule } from '@angular/material/slider';
   exports: [
     MatAutocompleteModule
   ],
-  providers: [OrdersService, ClientService, QzTrayService, AuthGuardService, AuthService, AccessResolverService],
+  providers: [OrdersService, ClientService, QzTrayService, AuthGuardService, AuthService, AccessResolverService, CouponService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

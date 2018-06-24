@@ -36,7 +36,17 @@
     </mat-option>
   </mat-select>
 </mat-form-field>
+  <mat-form-field class="col-md-4 col-xs-12">
+    <input matInput placeholder="GST NO" type="text" [(ngModel)]="clientdetails.gstNo" name="gstNo">
+  </mat-form-field>
+  <mat-form-field class="col-md-4 col-xs-12">
+    <mat-select placeholder="GST" [(ngModel)]="clientdetails.igst" name="igst">
+      <mat-option *ngFor="let s of igst" [value]="s.value" >
+        {{ s.viewValue }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
   </form>
-<button mat-raised-button color="primary" (click)="submitClient()" [disabled]="!form.valid">Submit</button>
+<button mat-raised-button color="primary" (click)="submitClient()" [disabled]="!form.valid&&submitDisabled">Submit</button>
 </mat-card>
 </div>

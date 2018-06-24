@@ -13,34 +13,37 @@
     <!-- Position Column -->
     <ng-container matColumnDef="clientId">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Id. </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.clientId}} </mat-cell>
+      <mat-cell *matCellDef="let order" routerLink="/clients/{{order.contactNo}}"> {{order.clientId}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="fullname">
       <mat-header-cell *matHeaderCellDef  mat-sort-header> clientname </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.fullname}} </mat-cell>
+      <mat-cell *matCellDef="let order" routerLink="/clients/{{order.contactNo}}"> {{order.fullname}} </mat-cell>
     </ng-container>
 
     <!-- Weight Column -->
     <ng-container matColumnDef="contactNo">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Contact No </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.contactNo}} </mat-cell>
+      <mat-cell *matCellDef="let order" routerLink="/clients/{{order.contactNo}}"> {{order.contactNo}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="sex">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Sex </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{sex[order.sex].viewValue}} </mat-cell>
+      <mat-cell *matCellDef="let order" routerLink="/clients/{{order.contactNo}}"> {{sex[order.sex].viewValue}} </mat-cell>
     </ng-container>
     
     <ng-container matColumnDef="address">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Address </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{order.address}} </mat-cell>
+      <mat-cell *matCellDef="let order" routerLink="/clients/{{order.contactNo}}"> {{order.address}} </mat-cell>
     </ng-container>
-
+	<ng-container matColumnDef="addOrder">
+      <mat-header-cell *matHeaderCellDef> Add Order </mat-header-cell>
+      <mat-cell *matCellDef="let row"> <button mat-button routerLink="/addOrder/{{row.contactNo}}">Add Order</button> </mat-cell>
+    </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;" routerLink="/clients/{{row.contactNo}}"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" ></mat-row>
   </mat-table>
   <mat-paginator #paginator
                  [pageSize]="10"

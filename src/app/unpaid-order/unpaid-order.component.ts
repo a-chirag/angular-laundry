@@ -4,11 +4,11 @@ import { OrdersService } from '../orders.service';
 import { QzTrayService } from '../qz-tray.service';
 import {MatTableDataSource, MatPaginator, MatSort} from '@angular/material';
 @Component({
-  selector: 'app-orders',
-  templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.css']
+  selector: 'app-pending-delivery',
+  templateUrl: './unpaid-order.component.html',
+  styleUrls: ['./unpaid-order.component.css']
 })
-export class OrdersComponent implements OnInit, AfterViewInit {
+export class UnpaidOrderComponent implements OnInit, AfterViewInit {
   displayedColumns = ['id',
     'clientname',
 'submissionDate',
@@ -30,7 +30,7 @@ export class OrdersComponent implements OnInit, AfterViewInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-  constructor(private ordersService: OrdersService) { }
+  constructor(public ordersService: OrdersService, public qztray: QzTrayService) { }
 
   ngOnInit() {
     this.getOrders();
@@ -41,6 +41,6 @@ export class OrdersComponent implements OnInit, AfterViewInit {
      this.dataSource.sort = this.sort;
   }
 getOrders(): void {
-  this.ordersService.getOrders().subscribe(orders => this.dataSource.data = orders);
+  this.ordersService.getUnpaidOrder().subscribe(orders => this.dataSource.data = orders);
 }
 }

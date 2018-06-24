@@ -16,6 +16,12 @@ deliveryStatus: status;
   regDate: string;
   ageRange: string;
   orderDetails: OrderDetails[];
+  address: string;
   tax: number;
   total: number;
+  constructor(){}
+    coupon: string;
+  paid: number;
+  gstNo: string;
+  igst: number;
 }

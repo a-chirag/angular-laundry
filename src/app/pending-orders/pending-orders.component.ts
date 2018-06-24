@@ -30,7 +30,7 @@ export class PendingOrdersComponent implements OnInit, AfterViewInit {
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
-  constructor(private ordersService: OrdersService) { }
+  constructor(private ordersService: OrdersService, public qztray: QzTrayService) { }
 
   ngOnInit() {
     this.getOrders();

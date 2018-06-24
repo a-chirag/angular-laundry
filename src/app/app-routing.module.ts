@@ -17,6 +17,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {OrdersComponent} from './orders/orders.component';
 import { PendingDeliveryComponent } from './pending-delivery/pending-delivery.component';
 import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
+import { UnpaidOrderComponent } from './unpaid-order/unpaid-order.component';
 import { UserDetailsComponent } from './user-details/user-details.component';
 
 const routes: Routes = [
@@ -27,11 +28,13 @@ const routes: Routes = [
   { path: 'clients', component: ClientsComponent, canActivate: [AuthGuardService] },
   { path: 'clothes', component: ClothesComponent, canActivate: [AuthGuardService] },
   { path: 'addOrder', component: AddOrderComponent, canActivate: [AuthGuardService] },
+  { path: 'addOrder/:id', component: AddOrderComponent, canActivate: [AuthGuardService] },
   { path: 'addClient', component: AddClientComponent, canActivate: [AuthGuardService] },
   { path: 'addCloth', component: AddClothComponent, canActivate: [AuthGuardService] },
   { path: 'settings', component: CompanyComponent, canActivate: [AuthGuardService] },
   { path: 'pendingOrders', component: PendingOrdersComponent, canActivate: [AuthGuardService] },
   { path: 'pendingDelivery', component: PendingDeliveryComponent, canActivate: [AuthGuardService] },
+  { path: 'unpaid', component: UnpaidOrderComponent, canActivate: [AuthGuardService] },
   { path: '', component: PendingDeliveryComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent},
   { path: 'access', component: AccessDeniedComponent},

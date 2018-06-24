@@ -7,11 +7,12 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { MatSort, MatTableDataSource } from '@angular/material';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {Company} from '../company';
+import { CouponService } from '../coupon.service';
 import {sprintf} from 'sprintf-js';
 @Component({
   selector: 'app-add-order',
@@ -23,7 +24,10 @@ client: Client;
   order: OrderAdd;
 contactNo: string;
   dataSource: any;
+  couponCode: string;
+  disc: any;
   companydetails: Company;
+  submitDisabled = true;
   cloth: Cloth = new Cloth();
    displayedColumns = ['clothName',
     'amount',
@@ -42,21 +46,26 @@ contactNo: string;
     {value: '2', viewValue: 'Premium W&F'},
     {value: '3', viewValue: 'Premium W&I'},
     {value: '4', viewValue: 'Dry Cleaning'},
-    {value: '5', viewValue: 'Ironing'},
-    {value: '6', viewValue: 'Polishing'}
+    {value: '5', viewValue: 'Steam Ironing'},
+    {value: '6', viewValue: 'Polishing'},
+    {value: '7', viewValue: 'Ironing'}
   ];
   urgency = [
   {value: 1, viewValue: 'Normal'},
     {value: 2, viewValue: 'Same Day'},
     {value: 3, viewValue: 'Next Day'}
   ];
-  constructor(private clientService: ClientService, private router: Router) {
-    this.clientService.getClothes().subscribe(clothes => this.options = clothes); }
-
+  constructor(private route: ActivatedRoute, private clientService: ClientService, private router: Router,private couponService: CouponService) {
+    this.clientService.getClothes().subscribe(clothes => this.options = clothes);
+  }
   ngOnInit() {
     this.clientService.getCompany().subscribe(company => {this.companydetails = company;
                                                     this.urgency[1].value = 1 + this.companydetails.sameDay / 100;
-                                                    this.urgency[2].value = 1 + company.nextDay / 100; });
+                                                    this.urgency[2].value = 1 + company.nextDay / 100;
+    if(this.route.snapshot.paramMap.get('id')) {
+    this.contactNo = this.route.snapshot.paramMap.get('id');
+      this.getClient();
+   } });
     this.order = new OrderAdd();
     this.order.orderDetails = [];
     this.order.urgency = 1;
@@ -67,14 +76,17 @@ contactNo: string;
         map(name => name ? this.filter(name) : this.options.slice())
       );
     this.dataSource = new MatTableDataSource<OrderDetails[]>();
+
   }
   ngAfterViewInit() {
      this.dataSource.sort = this.sort;
+
   }
 getClient(): void {
   this.clientService.getClient(this.contactNo).subscribe(client => {this.client = client;
                                                             this.order.clientId = client.clientId;
-                                                            this.order.expectedDeliveryDate = new Date(); });
+                                                            this.order.expectedDeliveryDate = new Date();
+                                                            this.order.expectedDeliveryDate.setDate(this.order.expectedDeliveryDate.getDate()+2)});
 }
 
   filter(name: string): Cloth[] {
@@ -88,6 +100,8 @@ getClient(): void {
   addWeight(): void {
     this.cloth = this.options.filter(option =>
       option.name.toLowerCase().indexOf('weight') === 0)[0];
+    var iron = this.options.filter(option =>
+      option.name.toLowerCase().indexOf('iron weight') === 0)[0];
     this.weightdetails.clothName = this.cloth.name;
         switch (true) {
           case this.weightdetails.orderType == 0 :
@@ -102,7 +116,11 @@ getClient(): void {
             break;
          case this.weightdetails.orderType == 3:
             this.weightdetails.amount = (this.order.urgency * this.cloth.drycleanRate + this.cloth.ironingRate)
-                                                                                    * this.weightdetails.quantity; // pw&i
+                                                                                    * this.weightdetails.quantity;
+            break; // pw&i
+         case this.weightdetails.orderType == 7:
+            this.weightdetails.amount = (this.order.urgency * iron.ironingRate)
+                                                                                    * this.weightdetails.quantity; // ironing
             break;
         }
     this.order.orderDetails.push(this.weightdetails);
@@ -115,6 +133,7 @@ getClient(): void {
     this.cloth= new Cloth();
   }
   addorder(): void {
+    this.submitDisabled = false;
     this.orderdetails.clothName = this.cloth.name;
     if (this.orderdetails.orderType == 4) {
       this.orderdetails.amount = this.order.urgency * this.cloth.drycleanRate * this.orderdetails.quantity;
@@ -156,8 +175,24 @@ getClient(): void {
     this.orderdetails = new OrderDetails();
     this.cloth = new Cloth();
   }
+  removeorder():void {
+   this.order.orderDetails.pop();
+   this.dataSource.data = this.order.orderDetails;
+  }
+  applyCoupon(): void {
+    this.order.amount=0;
+    this.order.orderDetails.forEach(item => this.order.amount += item.amount);
+    this.order.tax = this.order.amount * 0.18;
+    this.order.total = this.order.amount + this.order.tax;
+    this.couponService.applyCoupon(this.couponCode,this.order)
+        .subscribe(order => {this.order = order;this.disc = order.discount();this.order.coupon = this.couponCode; },
+                    error => console.log(error));
+  }
   submitOrder(): void {
-    this.clientService.postOrder(this.order).subscribe(data => {console.log(data); this.router.navigate(['/orders/' + data.id]); } );
+    this.submitDisabled = true;
+    this.clientService.postOrder(this.order).subscribe(data => {
+      console.log(data); this.router.navigate(['/orders/' + data.id]);
+    } );
   }
   urgencyChange(): void {
     this.order.orderDetails = [];

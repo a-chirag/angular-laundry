@@ -26,6 +26,7 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit {
   currentLat: any;
   currentLng: any;
   order: Order;
+  disc: boolean;
   client: Client;
   status: status;
   submissionDateForm;
@@ -40,8 +41,9 @@ types = [
     {value: '2', viewValue: 'Premium W&F'},
     {value: '3', viewValue: 'Premium W&I'},
     {value: '4', viewValue: 'Dry Cleaning'},
-    {value: '5', viewValue: 'Ironing'},
-    {value: '6', viewValue: 'Polishing'}
+    {value: '5', viewValue: 'Steam Ironing'},
+    {value: '6', viewValue: 'Polishing'},
+    {value: '7', viewValue: 'Ironing'}
   ];
   @ViewChild(MatSort) sort: MatSort;
   constructor(private route: ActivatedRoute, private clientService: ClientService,
@@ -56,10 +58,19 @@ this.dataSource = new MatTableDataSource<OrderDetails[]>();
   changeStatus(status: number){
     this.orderService.changeStatus(status, this.order.id).subscribe(order => this.order = order);
   }
+  changePaid(){
+    if(this.order.paid==0){
+      this.order.paid = 1;
+    } else {
+      this.order.paid =0;
+    }
+    this.orderService.changePaid(this.order.paid,this.order.id).subscribe(order => this.order = order);
+  }
 getHero(): void {
   const id = this.route.snapshot.paramMap.get('id');
   this.orderService.getOrder(id)
-    .subscribe(order => {this.order = order;
+    .subscribe(order => {
+    this.order = order;
     this.dataSource.data = this.order.orderDetails;
     this.submissionDateForm = new FormControl(this.order.submissionDate);
     this.clientService.getClient(this.order.contactNo).subscribe(client => {this.client = client;}); } );
@@ -79,6 +90,19 @@ cancelOrder()
 }
   printData() {
     this.qztray.printData('Receipt' , this.order).subscribe(data => console.log(data));
+  }
+  discount(): number{
+    let disc = this.order.amount;
+    this.order.orderDetails.forEach(item => disc -= item.amount)
+    return -disc;
+  }
+  actualAmount(): number{
+    let amount =0;
+    this.order.orderDetails.forEach(item => amount += item.amount)
+    return amount;
+  }
+  isDisc(): boolean {
+    return this.discount()!=0;
   }
 }
 

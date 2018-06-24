@@ -6,8 +6,8 @@
 	<button mat-button (click)="getClient()">Search</button>
 	</mat-card>
 
-	<mat-card class="add-card" *ngIf="client"> 
-		<mat-card-actions> 
+	<mat-card class="add-card" *ngIf="client">
+		<mat-card-actions>
 	<mat-form-field class="col-md-6 col-xs-12"> <input
 					matInput [matDatepicker]="picker1" placeholder="Delivery Date"
 					[(ngModel)]="order.expectedDeliveryDate" required> <mat-datepicker-toggle
@@ -19,19 +19,19 @@
 				{{ type.viewValue }} </mat-option> </mat-select> </mat-form-field>
 <div class="exapmle-container">
 	<form class="example-form" #form="ngForm">
-	
-	<mat-form-field class="col-md-3 col-xs-12"> 
+
+	<mat-form-field class="col-md-5 col-xs-12">
 	<input type="text" placeholder="Item" aria-label="Item" matInput	[formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="cloth"
-		name="clothName" required> 
+		name="clothName" required>
 		<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
-	 		<mat-option *ngFor="let option of filteredOptions | async" [value]="option">{{ option.name }} </mat-option>
-		</mat-autocomplete> 
+	 		<mat-option *ngFor="let option of filteredOptions | async" [value]="option"> <small>{{ option.name}} || DC: {{ option.drycleanRate*1.18 |number:'1.0-0'}} IR: {{ option.ironingRate*1.18|number:'1.0-0' }} PC: {{ option.laundryRate*1.18|number:'1.0-0' }}</small> </mat-option>
+		</mat-autocomplete>
 	</mat-form-field>
-	
-	<mat-form-field class="col-md-3 col-xs-12">
-	<input matInput placeholder="Quantity" type="number"
+
+	<mat-form-field class="col-md-2 col-xs-12">
+	<input matInput placeholder="Quant" type="number"
 		[(ngModel)]="orderdetails.quantity" name="quantity" value="1" required>
-	</mat-form-field> <mat-form-field class="col-md-3 col-xs-12"> <mat-select
+	</mat-form-field> <mat-form-field class="col-md-2 col-xs-12"> <mat-select
 		placeholder="Type" [(ngModel)]="orderdetails.orderType"
 		name="ordertype" required> <mat-option *ngFor="let type of types"
 		[value]="type.value"> {{ type.viewValue }} </mat-option> </mat-select> </mat-form-field>
@@ -39,6 +39,7 @@
     margin:  0;
     margin-bottom: 21px;
 	">ADD</button>
+    <button  mat-icon-button color="warn" (click)="removeorder()">X</button>
 	<br>
 </form>
 <form class="example-form" #weightform="ngForm">
@@ -56,10 +57,22 @@
 	">ADD</button>
 	<br>
 </form>
+<form class="example-form" #couponform="ngForm">
+
+	<mat-form-field class="col-md-3 col-xs-12">
+	<input matInput placeholder="Coupon Code"
+		[(ngModel)]="couponCode" name="code" required>
+	</mat-form-field>
+	<button [disabled]="!couponform.valid" mat-button (click)="applyCoupon()" style="padding:  0;
+    margin:  0;
+    margin-bottom: 21px;
+	">APPLY</button>
+	<br>
+</form>
 </div>
 </mat-card-actions>
 <mat-card-footer class="col-12">
-<button mat-button (click)="submitOrder()">Submit</button>
+<button mat-button (click)="submitOrder()" [disabled]="submitDisabled">Submit</button>
 </mat-card-footer>
 </mat-card>
 </div>
@@ -98,7 +111,9 @@
 		*matHeaderRowDef="displayedColumns"></mat-header-row> <mat-row
 		*matRowDef="let row; columns: displayedColumns;"></mat-row> </mat-table> </mat-card-content> <mat-card-actions>
 	<table class="table">
-		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
+		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.actualAmount()|number:'1.2-2'}}</td></tr>
+		<tr *ngIf="disc"><td align="right" >Discount:</td><td> {{disc|number:'1.2-2'}}</td></tr>
+		<tr *ngIf="disc"><td align="right">Final Amount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>
