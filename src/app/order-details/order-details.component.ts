@@ -12,6 +12,7 @@ import { MatTableDataSource, MatSort } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import printJS from 'print-js';
 import qz from 'qz-tray';
+import {NotificationService} from "../notification.service";
 
 
 @Component({
@@ -46,7 +47,7 @@ types = [
     {value: '7', viewValue: 'Ironing'}
   ];
   @ViewChild(MatSort) sort: MatSort;
-  constructor(private route: ActivatedRoute, private clientService: ClientService,
+  constructor(private route: ActivatedRoute, private clientService: ClientService,private notificationService: NotificationService,
   private orderService: OrdersService,  private qztray: QzTrayService, private router : Router) { }
   ngOnInit() {
     this.getHero();
@@ -103,6 +104,9 @@ cancelOrder()
   }
   isDisc(): boolean {
     return this.discount()!=0;
+  }
+  sendNotification(id: string){
+    this.notificationService.sendNotification(id);
   }
 }
 

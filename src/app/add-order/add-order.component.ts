@@ -14,6 +14,7 @@ import {map} from 'rxjs/operators/map';
 import {Company} from '../company';
 import { CouponService } from '../coupon.service';
 import {sprintf} from 'sprintf-js';
+import {NotificationService} from "../notification.service";
 @Component({
   selector: 'app-add-order',
   templateUrl: './add-order.component.html',
@@ -55,7 +56,7 @@ contactNo: string;
     {value: 2, viewValue: 'Same Day'},
     {value: 3, viewValue: 'Next Day'}
   ];
-  constructor(private route: ActivatedRoute, private clientService: ClientService, private router: Router,private couponService: CouponService) {
+  constructor(private route: ActivatedRoute, private clientService: ClientService,private notficationService: NotificationService,private router: Router,private couponService: CouponService) {
     this.clientService.getClothes().subscribe(clothes => this.options = clothes);
   }
   ngOnInit() {
@@ -191,6 +192,7 @@ getClient(): void {
   submitOrder(): void {
     this.submitDisabled = true;
     this.clientService.postOrder(this.order).subscribe(data => {
+      this.notficationService.sendNotification(data.id);
       console.log(data); this.router.navigate(['/orders/' + data.id]);
     } );
   }

@@ -22,8 +22,9 @@
     <mat-chip [class.status]="order.paid==1" color="warm" selected="true" (click)="changePaid()">Paid</mat-chip>
     <mat-chip [class.status]="true" color="warm" selected="true" (click)="print()">Print Tag</mat-chip>
     <mat-chip [class.status]="true" color="warm" selected="true" (click)="printData()">Receipt</mat-chip>
+      <mat-chip [class.status]="true" color="warm" selected="true" (click)="sendNotification(order.id)">MSG</mat-chip>
     </mat-chip-list>
-    
+
   </mat-card-header>
   <mat-card-content>
     Expected Delivery: {{order.expectedDeliveryDate}}

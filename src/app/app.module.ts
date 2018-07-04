@@ -47,6 +47,7 @@ import { UserDetailsComponent } from './user-details/user-details.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { UnpaidOrderComponent } from './unpaid-order/unpaid-order.component';
+import {NotificationService} from "./notification.service";
 
 
 @NgModule({
@@ -100,7 +101,7 @@ import { UnpaidOrderComponent } from './unpaid-order/unpaid-order.component';
   exports: [
     MatAutocompleteModule
   ],
-  providers: [OrdersService, ClientService, QzTrayService, AuthGuardService, AuthService, AccessResolverService, CouponService],
+  providers: [OrdersService, ClientService, QzTrayService, AuthGuardService, AuthService, AccessResolverService, CouponService,NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
