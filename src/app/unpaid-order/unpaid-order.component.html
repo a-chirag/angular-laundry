@@ -44,7 +44,7 @@
      <ng-container matColumnDef="deliveryStatus">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
       <mat-cell *matCellDef="let order"> {{types[order.deliveryStatus].viewValue}}
-        <mat-slide-toggle [(ngModel)]="order.paid" (change)="ordersService.changePaid(order.paid==0?0:1, order.id).subscribe()" name="enabled">Paid</mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="order.paid" (change)="ordersService.changePaid(order.paid==0?0:1, order.id).subscribe();qztray.printData('Receipt',order).subscribe()" name="enabled">Paid</mat-slide-toggle>
       </mat-cell>
 
     </ng-container>
