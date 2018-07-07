@@ -57,6 +57,9 @@ this.dataSource = new MatTableDataSource<OrderDetails[]>();
      this.dataSource.sort = this.sort;
   }
   changeStatus(status: number){
+    if(status==2){
+      this.notificationService.sendDeliveryNotification(this.order.id);
+    }
     this.orderService.changeStatus(status, this.order.id).subscribe(order => this.order = order);
   }
   changePaid(){
