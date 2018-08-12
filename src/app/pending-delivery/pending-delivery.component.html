@@ -43,7 +43,9 @@
     </ng-container>
      <ng-container matColumnDef="deliveryStatus">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{types[order.deliveryStatus].viewValue}} </mat-cell>
+      <mat-cell *matCellDef="let order">
+        <mat-chip [class.status]="order.deliveryStatus === 2" color="warm" selected="true" (click)="changeStatus(2,order);order.deliveryStatus=2">Completed</mat-chip>
+      </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

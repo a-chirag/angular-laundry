@@ -42,4 +42,7 @@ export class PendingDeliveryComponent implements OnInit, AfterViewInit {
 getOrders(): void {
   this.ordersService.getPendingDelivery().subscribe(orders => this.dataSource.data = orders);
 }
+  changeStatus(status: number,order: Order){
+    this.ordersService.changeStatus(status, order.id).subscribe();
+  }
 }

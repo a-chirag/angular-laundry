@@ -104,7 +104,7 @@ this.config = qz.configs.create(printer);
   }
   printBarcode(printer: string, order: Order): Observable<any> {
     this.yPosition = 10;
-    let totalQuantity = order.totalQuantity * 1.6 + 2;
+    let totalQuantity = order.totalQuantity * 1.6 + 2.5;
     this.config = qz.configs.create(printer);
     let data = [
  'GAP 0,0\n',

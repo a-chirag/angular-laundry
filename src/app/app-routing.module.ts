@@ -13,7 +13,7 @@ import { LoginComponent } from './login/login.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
+import {ExtraOptions, RouterModule, Routes} from '@angular/router';
 import {OrdersComponent} from './orders/orders.component';
 import { PendingDeliveryComponent } from './pending-delivery/pending-delivery.component';
 import { PendingOrdersComponent } from './pending-orders/pending-orders.component';
@@ -41,9 +41,11 @@ const routes: Routes = [
   { path: 'addUser', component: AddUserComponent, canActivate: [AuthGuardService]},
   { path: 'manageUser', component: UserDetailsComponent, canActivate: [AuthGuardService]}
 ];
-
+const config: ExtraOptions = {
+  useHash: true,
+};
 @NgModule({
-  imports: [RouterModule.forRoot(routes)
+  imports: [RouterModule.forRoot(routes,config)
   ],
   exports: [RouterModule]
 })

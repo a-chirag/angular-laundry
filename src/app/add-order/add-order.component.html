@@ -24,7 +24,7 @@
 	<input type="text" placeholder="Item" aria-label="Item" matInput	[formControl]="myControl" [matAutocomplete]="auto" [(ngModel)]="cloth"
 		name="clothName" required>
 		<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
-	 		<mat-option *ngFor="let option of filteredOptions | async" [value]="option"> <small>{{ option.name}} || DC: {{ option.drycleanRate*1.18 |number:'1.0-0'}} IR: {{ option.ironingRate*1.18|number:'1.0-0' }} PC: {{ option.laundryRate*1.18|number:'1.0-0' }}</small> </mat-option>
+	 		<mat-option *ngFor="let option of filteredOptions | async" [value]="option"> <small>{{ option.name}} || DC: {{ option.drycleanRate |number:'1.0-0'}} IR: {{ option.ironingRate|number:'1.0-0' }} PC: {{ option.laundryRate|number:'1.0-0' }}</small> </mat-option>
 		</mat-autocomplete>
 	</mat-form-field>
 
