@@ -111,9 +111,9 @@
 		*matHeaderRowDef="displayedColumns"></mat-header-row> <mat-row
 		*matRowDef="let row; columns: displayedColumns;"></mat-row> </mat-table> </mat-card-content> <mat-card-actions>
 	<table class="table">
-		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.actualAmount()|number:'1.2-2'}}</td></tr>
+		<tr><td class="col-md-9 col-xs-9 col-9" align="right" *ngIf="disc">Amount:</td><td> {{order.actualAmount()|number:'1.2-2'}}</td></tr>
 		<tr *ngIf="disc"><td align="right" >Discount:</td><td> {{disc|number:'1.2-2'}}</td></tr>
-		<tr *ngIf="disc"><td align="right">Final Amount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
+		<tr *ngIf="disc"><td align="right">After Discount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>

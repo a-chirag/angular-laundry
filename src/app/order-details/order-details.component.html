@@ -66,9 +66,9 @@
   </div>
   </mat-card-content>
   <table class="table">
-		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
+		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{actualAmount()|number:'1.2-2'}}</td></tr>
 		<tr *ngIf="order.coupon"><td align="right" >Discount:</td><td> {{discount()|number:'1.2-2'}}</td></tr>
-		<tr *ngIf="order.coupon"><td align="right">Final Amount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
+		<tr *ngIf="order.coupon"><td align="right">After Discount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>
