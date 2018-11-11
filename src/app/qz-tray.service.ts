@@ -104,7 +104,7 @@ this.config = qz.configs.create(printer);
   }
   printBarcode(printer: string, order: Order): Observable<any> {
     this.yPosition = 10;
-    let totalQuantity = order.totalQuantity * 1.6 + 2.5;
+    let totalQuantity = order.totalQuantity * 1.9 + 1;
     this.config = qz.configs.create(printer);
     let data = [
  'GAP 0,0\n',
@@ -115,18 +115,21 @@ this.config = qz.configs.create(printer);
     order.orderDetails.forEach(or => {
       if (or.clothName !== 'weight') {
       for ( let i = 0; i < or.quantity; i++) {
+        data.push(this.box(this.yPosition));
     data.push(this.companyTitle(this.yPosition));
-      this.yPosition = this.yPosition + 50;
+      this.yPosition = this.yPosition + 35;
+        data.push(this.counterName(this.yPosition,order.userId));
+        this.yPosition = this.yPosition + 30;
       data.push(this.barcode(this.yPosition, or.jobOrderId));
-      this.yPosition = this.yPosition + 120;
+      this.yPosition = this.yPosition + 110;
       data.push(this.clothname(this.yPosition, or.clothName));
-      this.yPosition = this.yPosition + 50;
+      this.yPosition = this.yPosition + 30;
       data.push(this.orderType(this.yPosition, or.orderType));
       this.yPosition = this.yPosition + 30;
         data.push(this.deliveryDate(this.yPosition, order.expectedDeliveryDate.toString()));
         this.yPosition = this.yPosition + 30;
         data.push(this.totalQuant(this.yPosition, order.totalQuantity.toString()));
-      this.yPosition = this.yPosition + 70;
+      this.yPosition = this.yPosition + 75;
       console.log(data.toString());
      } }
     });
@@ -136,9 +139,16 @@ this.config = qz.configs.create(printer);
   clothname(position: number, cloth: string): string {
   return 'TEXT 50,' + position + ',"2",0,1,1,"' + cloth + '"\n';
 }
+  box(position: number): string {
+    return 'BOX 30,'+(position-5)+',270,'+ (position+295) +',4 \n';
+  }
+
 companyTitle(position: number): string {
-  return 'TEXT 50,' + position + ',"2",0,1,1,"' + this.company.name + '"\n';
+  return 'TEXT 145,' + position + ',"3",0,1,1,2,"' + this.company.name + '"\n';
 }
+  counterName(position: number,counter: string): string {
+    return 'TEXT 50,' + position + ',"2",0,1,1,"' + counter + '"\n';
+  }
   barcode(position: number, id: string): string {
     return 'BARCODE 50,' + position + ',"128",60,2,0,3,30,"' + id + '"\n';
   }

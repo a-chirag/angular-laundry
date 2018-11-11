@@ -7,6 +7,7 @@ submissionDate: Date;
 expectedDeliveryDate: Date;
 totalQuantity: number;
 amount: number;
+userId: string;
 deliveryStatus: status;
   urgency: number;
   clientId: number;
