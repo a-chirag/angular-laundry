@@ -178,7 +178,13 @@ getClient(): void {
   }
   removeorder():void {
    this.order.orderDetails.pop();
+   this.order.totalQuantity = 0;
+   this.order.amount = 0;
    this.dataSource.data = this.order.orderDetails;
+    this.order.orderDetails.forEach(item => {
+      if (item.clothName !== 'weight') {
+        this.order.totalQuantity += item.quantity; }});
+    this.order.orderDetails.forEach(item => this.order.amount += item.amount);
   }
   applyCoupon(): void {
     this.order.amount=0;

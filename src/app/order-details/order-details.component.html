@@ -69,8 +69,8 @@
 		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{actualAmount()|number:'1.2-2'}}</td></tr>
 		<tr *ngIf="order.coupon"><td align="right" >Discount:</td><td> {{discount()|number:'1.2-2'}}</td></tr>
 		<tr *ngIf="order.coupon"><td align="right">After Discount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
-		<tr><td align="right">CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
-		<tr><td align="right">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
+		<tr><td align="right" *ngIf="order.tax">CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
+		<tr><td align="right" *ngIf="order.tax">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>
 		<tr><td><button *ngIf="order.deliveryStatus === 1" class="Navigation" style="float: left;" mat-button (click)="navigation()">Navigation</button>
         <button *ngIf="order.deliveryStatus === 0" style="float: left;" mat-button (click)="cancelOrder()">Cancel Order</button></td><td></td></tr>
