@@ -115,8 +115,8 @@
 		<tr><td class="col-md-9 col-xs-9 col-9" align="right">Amount:</td><td> {{order.actualAmount()|number:'1.2-2'}}</td></tr>
 		<tr *ngIf="disc"><td align="right" >Discount:</td><td> {{disc|number:'1.2-2'}}</td></tr>
 		<tr *ngIf="disc"><td align="right">After Discount:</td><td> {{order.amount|number:'1.2-2'}}</td></tr>
-		<tr><td align="right">CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
-		<tr><td align="right">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
+		<tr *ngIf="order.tax"><td align="right" >CGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
+		<tr *ngIf="order.tax"><td align="right">SGST @ 9%:</td><td> {{order.tax/2|number:'1.2-2'}}</td></tr>
 		<tr><td align="right">Total:</td><td> {{order.total|number:'1.2-2'}}</td></tr>
 	</table>
 	</mat-card-actions> </mat-card>

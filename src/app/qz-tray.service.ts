@@ -42,14 +42,19 @@ this.config = qz.configs.create(printer);
       { type: 'raw', data: 'Email : ' + this.company.email + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Address : ' + this.company.address + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Customer Care : ' + this.company.phoneNo + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
-      { type: 'raw', data: 'GST No. : ' + this.company.gstNo + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
+    ];
+    if (this.company.gstNo){
+      data.push(
+        { type: 'raw', data: 'GST No. : ' + this.company.gstNo + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  })
+    }
+    data.push(
       { type: 'raw', data: 'Submission Date: ' + order.submissionDate + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Bill No. :' + order.id + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Name :' + order.clientName + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Contact No. :' + order.contactNo+ '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Address :' + order.address + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
-    ];
+      );
     if(order.gstNo){
       data.push({ type: 'raw', data: 'Client GST No. :' + order.gstNo + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
       data.push({ type: 'raw', data: 'State Code :' + 21 + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
@@ -77,12 +82,14 @@ this.config = qz.configs.create(printer);
       data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Total   :   ', order.amount) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
     }
-    data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'CGST@9%   :   ', order.tax / 2) + '\n',
-       options: { language: 'ESCPOS', dotDensity: 'single' }  });
-    data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'SGST@9%   :   ', order.tax / 2) + '\n',
-       options: { language: 'ESCPOS', dotDensity: 'single' }  });
-    data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Total Payable   :   ', order.total) + '\n',
-       options: { language: 'ESCPOS', dotDensity: 'single' }  });
+    if(order.tax){
+      data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'CGST@9%   :   ', order.tax / 2) + '\n',
+        options: { language: 'ESCPOS', dotDensity: 'single' }  });
+      data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'SGST@9%   :   ', order.tax / 2) + '\n',
+        options: { language: 'ESCPOS', dotDensity: 'single' }  });
+      data.push({ type: 'raw', data: sprintf('%-25s %3.2f', 'Total Payable   :   ', order.total) + '\n',
+        options: { language: 'ESCPOS', dotDensity: 'single' }  });
+    }
     data.push({ type: 'raw', data: sprintf('%-15s %13s', 'Delivery Date   :   ', order.expectedDeliveryDate.toString()) + '\n',
        options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
@@ -90,7 +97,7 @@ this.config = qz.configs.create(printer);
     data.push({ type: 'raw', data: this.company.thankingNote + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: '\n\n\n\n\n\n\n', options: { language: 'ESCPOS', dotDensity: 'single' }  });
     data.push({ type: 'raw', data: '\x1B' + '\x69', options: { language: 'ESCPOS', dotDensity: 'single' }  });
-    //console.log(data );
+    console.log(data );
      return Observable.fromPromise(qz.print(this.config, data));
 }
   errorHandler(error: any): Observable<any> {

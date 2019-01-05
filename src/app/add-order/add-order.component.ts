@@ -128,8 +128,9 @@ getClient(): void {
     this.dataSource.data = this.order.orderDetails;
     this.order.amount = 0;
     this.order.orderDetails.forEach(item => this.order.amount += item.amount);
-    this.order.tax = this.order.amount * 0.18;
-    this.order.total = this.order.amount + this.order.tax;
+    // this.order.tax = this.order.amount * 0.18;
+    this.order.total = this.order.amount
+      // + this.order.tax;
     this.weightdetails = new OrderDetails();
     this.cloth= new Cloth();
   }
@@ -167,8 +168,9 @@ getClient(): void {
     this.dataSource.data = this.order.orderDetails;
     this.order.amount = 0;
     this.order.orderDetails.forEach(item => this.order.amount += item.amount);
-    this.order.tax = this.order.amount * 0.18;
-    this.order.total = this.order.amount + this.order.tax;
+    // this.order.tax = this.order.amount * 0.18;
+    this.order.total = this.order.amount
+      // + this.order.tax;
     this.order.totalQuantity = 0;
     this.order.orderDetails.forEach(item => {
       if (item.clothName !== 'weight') {
@@ -189,8 +191,9 @@ getClient(): void {
   applyCoupon(): void {
     this.order.amount=0;
     this.order.orderDetails.forEach(item => this.order.amount += item.amount);
-    this.order.tax = this.order.amount * 0.18;
-    this.order.total = this.order.amount + this.order.tax;
+    // this.order.tax = this.order.amount * 0.18;
+    this.order.total = this.order.amount
+      // + this.order.tax;
     this.couponService.applyCoupon(this.couponCode,this.order)
         .subscribe(order => {this.order = order;this.disc = order.discount();this.order.coupon = this.couponCode; },
                     error => console.log(error));
