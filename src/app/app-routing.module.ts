@@ -35,7 +35,7 @@ const routes: Routes = [
   { path: 'pendingOrders', component: PendingOrdersComponent, canActivate: [AuthGuardService] },
   { path: 'pendingDelivery', component: PendingDeliveryComponent, canActivate: [AuthGuardService] },
   { path: 'unpaid', component: UnpaidOrderComponent, canActivate: [AuthGuardService] },
-  { path: '', component: PendingDeliveryComponent, canActivate: [AuthGuardService] },
+  { path: '', component: PendingOrdersComponent, canActivate: [AuthGuardService] },
   { path: 'login', component: LoginComponent},
   { path: 'access', component: AccessDeniedComponent},
   { path: 'addUser', component: AddUserComponent, canActivate: [AuthGuardService]},

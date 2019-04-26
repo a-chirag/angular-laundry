@@ -11,8 +11,7 @@ export class AuthService {
     login(username, password: string) {
       let body = username + ':' + password;
       let headers = new HttpHeaders();
-      headers= headers.append('Content-Type', 'application/x-www-form-urlencoded');
-      headers = headers.set('Authorization','Basic '+btoa(body));
+      localStorage.setItem('Token', btoa(body))
       let options = {
         headers: headers,
         responseType: 'text' as 'json'};
@@ -32,5 +31,12 @@ export class AuthService {
         // remove user from local storage to log user out
       this.http.post<any>('/api/logout', null).subscribe();
         localStorage.removeItem('currentUser');
+        localStorage.removeItem('Token')
+
+    }
+
+    static getToken(): string{
+    let token = localStorage.getItem('Token');
+    return token?token:'';
     }
 }

@@ -11,13 +11,13 @@ export class AuthGuardService implements CanActivate {
     if (localStorage.getItem('currentUser')) {
       let data = JSON.parse(localStorage.getItem('currentUser'));
       let user = data.value;
-      let now = new Date().getTime();
-      if ((now - data.timestamp) > 600000) {
-        this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
-         return false;
-      }
-      localStorage.removeItem('currentUser');
-      localStorage.setItem('currentUser', JSON.stringify({value: user, timestamp: new Date().getTime()}));
+      // let now = new Date().getTime();
+      // if ((now - data.timestamp) > 600000) {
+      //   this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
+      //    return false;
+      // }
+      // localStorage.removeItem('currentUser');
+      // localStorage.setItem('currentUser', JSON.stringify({value: user, timestamp: new Date().getTime()}));
       if (user.authorities[0].authority === 'ROLE_USER') {
         return true;
       } else if (user.authorities[0].authority === 'ROLE_DELIVERY') {

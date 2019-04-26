@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { OrdersComponent } from './orders/orders.component';
@@ -48,6 +48,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSliderModule } from '@angular/material/slider';
 import { UnpaidOrderComponent } from './unpaid-order/unpaid-order.component';
 import {NotificationService} from "./notification.service";
+import {httpInterceptor} from "./login";
 
 
 @NgModule({
@@ -101,7 +102,7 @@ import {NotificationService} from "./notification.service";
   exports: [
     MatAutocompleteModule
   ],
-  providers: [OrdersService, ClientService, QzTrayService, AuthGuardService, AuthService, AccessResolverService, CouponService,NotificationService],
+  providers: [httpInterceptor,OrdersService, ClientService, QzTrayService, AuthGuardService, AuthService, AccessResolverService, CouponService,NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
