@@ -42,6 +42,7 @@ this.config = qz.configs.create(printer);
       { type: 'raw', data: 'Email : ' + this.company.email + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Address : ' + this.company.address + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Customer Care : ' + this.company.phoneNo + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
+      { type: 'raw', data: 'Bill of Supply' + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
     ];
     if (this.company.gstNo){
       data.push(

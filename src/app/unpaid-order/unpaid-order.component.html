@@ -43,7 +43,8 @@
     </ng-container>
      <ng-container matColumnDef="deliveryStatus">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
-      <mat-cell *matCellDef="let order"> {{types[order.deliveryStatus].viewValue}}
+      <mat-cell *matCellDef="let order">
+        <mat-chip [class.status]="order.deliveryStatus === 2" color="warm" selected="true" (click)="changeStatus(2,order);order.deliveryStatus=2">Completed</mat-chip>
         <mat-slide-toggle [(ngModel)]="order.paid" (change)="ordersService.changePaid(order.paid==0?0:1, order.id).subscribe()" name="enabled">Paid</mat-slide-toggle>
       </mat-cell>
 

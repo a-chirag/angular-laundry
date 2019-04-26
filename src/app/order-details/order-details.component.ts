@@ -26,6 +26,7 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit {
   navigate: string;
   currentLat: any;
   currentLng: any;
+  amount: any;
   order: Order;
   disc: boolean;
   client: Client;
@@ -101,9 +102,8 @@ cancelOrder()
     return -disc;
   }
   actualAmount(): number{
-    let amount =0;
-    this.order.orderDetails.forEach(item => amount += item.amount)
-    return amount;
+    this.order.orderDetails.forEach(item => this.amount += item.amount)
+    return this.amount;
   }
   isDisc(): boolean {
     return this.discount()!=0;

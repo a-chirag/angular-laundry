@@ -21,8 +21,8 @@ getCoupon (code: string): Observable<Coupon> {
           } else {
             this.makeDiscount(order, coupon).subscribe(disc => {
               order.amount = order.amount - disc;
-              order.tax = order.amount * 0.18;
-              order.total = order.amount + order.tax;
+              // order.tax = order.amount * 0.18;
+              order.total = order.amount;
               observer.next(order);
               observer.complete();
               }, error => {observer.error('Requirements Not met'); observer.complete()});

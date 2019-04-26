@@ -43,4 +43,7 @@ export class UnpaidOrderComponent implements OnInit, AfterViewInit {
 getOrders(): void {
   this.ordersService.getUnpaidOrder().subscribe(orders => this.dataSource.data = orders);
 }
+changeStatus(status: number,order: Order){
+    this.ordersService.changeStatus(status, order.id).subscribe();
+  }
 }
