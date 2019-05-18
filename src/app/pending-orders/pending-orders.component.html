@@ -45,6 +45,7 @@
       <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
       <mat-cell *matCellDef="let order">
         <mat-chip [class.status]="order.deliveryStatus === 1" color="warm" selected="true" (click)="changeStatus(1,order);order.deliveryStatus=1">Delivery</mat-chip>
+        <mat-chip [class.status]="order.deliveryStatus === 2" color="warm" selected="true" (click)="changeStatus(2,order);order.deliveryStatus=2">Complete</mat-chip>
         <mat-chip [class.status]="true" color="warm" selected="true" (click)="qztray.printData('Receipt',order).subscribe()">Receipt</mat-chip>
       </mat-cell>
 

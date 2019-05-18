@@ -28,3 +28,6 @@
   background-color: #0001d4;
   color: white;
 }
+.mat-column-id {
+  max-width: 96px;
+}

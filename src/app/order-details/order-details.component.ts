@@ -98,12 +98,16 @@ cancelOrder()
   }
   discount(): number{
     let disc = this.order.amount;
-    this.order.orderDetails.forEach(item => disc -= item.amount)
+    this.order.orderDetails.forEach(item => disc -= item.amount);
     return -disc;
   }
   actualAmount(): number{
-    this.order.orderDetails.forEach(item => this.amount += item.amount)
-    return this.amount;
+    let amt = 0;
+    this.order.orderDetails.forEach(item => {
+      this.amount += item.amount;
+      amt += item.amount;
+    });
+    return amt;
   }
   isDisc(): boolean {
     return this.discount()!=0;

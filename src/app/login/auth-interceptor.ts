@@ -11,7 +11,6 @@ import {AuthService} from "../auth.service";
 export class AuthInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler):
     Observable<HttpEvent<any>> {
-    console.log("Call intercepted");
     const authToken = AuthService.getToken();
     const authReq = req.clone({
     headers: req.headers.set('Authorization', 'Basic '+authToken)
