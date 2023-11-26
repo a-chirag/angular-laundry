@@ -52,6 +52,7 @@ this.config = qz.configs.create(printer);
       { type: 'raw', data: 'Submission Date: ' + order.submissionDate + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: '---------------------------------------\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Bill No. :' + order.id + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
+      { type: 'raw', data: this.getBarcode(order.id), options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Name :' + order.clientName + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Contact No. :' + order.contactNo+ '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
       { type: 'raw', data: 'Address :' + order.address + '\n', options: { language: 'ESCPOS', dotDensity: 'single' }  },
@@ -112,7 +113,7 @@ this.config = qz.configs.create(printer);
   }
   printBarcode(printer: string, order: Order): Observable<any> {
     this.yPosition = 10;
-    let totalQuantity = order.totalQuantity * 1.9 + 1;
+    let totalQuantity = order.totalQuantity * 1.92 + 1;
     this.config = qz.configs.create(printer);
     let data = [
  'GAP 0,0\n',
@@ -125,17 +126,20 @@ this.config = qz.configs.create(printer);
       for ( let i = 0; i < or.quantity; i++) {
         data.push(this.box(this.yPosition));
     data.push(this.companyTitle(this.yPosition));
-      this.yPosition = this.yPosition + 35;
+      this.yPosition = this.yPosition + 30;
         data.push(this.counterName(this.yPosition,order.userId));
-        this.yPosition = this.yPosition + 30;
-      data.push(this.barcode(this.yPosition, or.jobOrderId));
-      this.yPosition = this.yPosition + 110;
+        this.yPosition = this.yPosition + 25;
+        data.push(this.orderId(this.yPosition,or.jobOrderId));
+        this.yPosition = this.yPosition + 58;
+      data.push(this.barcode(this.yPosition, or.id));
+      data.push(this.barcodeId(this.yPosition, or.id));
+      this.yPosition = this.yPosition + 90;
       data.push(this.clothname(this.yPosition, or.clothName));
-      this.yPosition = this.yPosition + 30;
+      this.yPosition = this.yPosition + 25;
       data.push(this.orderType(this.yPosition, or.orderType));
-      this.yPosition = this.yPosition + 30;
+      this.yPosition = this.yPosition + 25;
         data.push(this.deliveryDate(this.yPosition, order.expectedDeliveryDate.toString()));
-        this.yPosition = this.yPosition + 30;
+        this.yPosition = this.yPosition + 25;
         data.push(this.totalQuant(this.yPosition, order.totalQuantity.toString()));
       this.yPosition = this.yPosition + 75;
       console.log(data.toString());
@@ -145,32 +149,38 @@ this.config = qz.configs.create(printer);
    return Observable.fromPromise(qz.print(this.config, data))
   }
   clothname(position: number, cloth: string): string {
-  return 'TEXT 50,' + position + ',"2",0,1,1,"' + cloth + '"\n';
+  return 'TEXT 40,' + position + ',"2",0,1,1,"' + cloth + '"\n';
 }
   box(position: number): string {
-    return 'BOX 30,'+(position-5)+',270,'+ (position+295) +',4 \n';
+    return 'BOX 25,'+(position-5)+',270,'+ (position+310) +',4 \n';
   }
 
 companyTitle(position: number): string {
-  return 'TEXT 145,' + position + ',"3",0,1,1,2,"' + this.company.name + '"\n';
+  return 'TEXT 140,' + position + ',"3",0,1,1,2,"' + this.company.name + '"\n';
 }
   counterName(position: number,counter: string): string {
-    return 'TEXT 50,' + position + ',"2",0,1,1,"' + counter + '"\n';
+    return 'TEXT 40,' + position + ',"2",0,1,1,"' + counter + '"\n';
+  }
+  orderId(position: number, id: string): string {
+    return 'TEXT 140,' + position + ',"5",0,1,1,2,"' + id + '"\n';
   }
   barcode(position: number, id: string): string {
-    return 'BARCODE 50,' + position + ',"128",60,2,0,3,30,"' + id + '"\n';
+    return 'QRCODE 40,' + position + ',M,4,A,0,M2,"' + id + '"\n ';
+  }
+  barcodeId(position: number, id: string): string {
+    return 'TEXT 160,' + position + ',"2",0,1,1,"' + id + '"\n';
   }
   orderType(position: number, orderT: number): string {
-    return 'TEXT 50,' + position + ',"2",0,1,1,"' + this.types[orderT].viewValue + '"\n';
+    return 'TEXT 40,' + position + ',"2",0,1,1,"' + this.types[orderT].viewValue + '"\n';
   }
   deliveryDate(position: number, date: string): string {
     console.log(date);
-     return 'TEXT 50,' + position + ',"2",0,1,1,"' + date + '"\n';
+     return 'TEXT 40,' + position + ',"2",0,1,1,"' + date + '"\n';
   }
   totalQuant(position: number, quant: string): string {
     console.log(quant);
     quant= "Quantity "+ quant;
-    return 'TEXT 50,' + position + ',"2",0,1,1,"' + quant + '"\n';
+    return 'TEXT 40,' + position + ',"2",0,1,1,"' + quant + '"\n';
   }
   actualAmount(order: Order): number{
     let amount =0;
@@ -181,5 +191,13 @@ companyTitle(position: number): string {
     let disc = order.amount;
     order.orderDetails.forEach(item => disc -= item.amount)
     return -disc;
+  }
+  getBarcode(orderid: string): string {
+
+    var chr = function(n) { return String.fromCharCode(n); };
+
+    return  '\x1D' + 'h' + chr(80) +   //barcode height
+      '\x1D' + 'f' + chr(0) +              //font for printed number
+      '\x1D' + 'k' + chr(69) + chr(orderid.length) + orderid + chr(0); //code39
   }
 }

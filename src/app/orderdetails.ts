@@ -8,5 +8,8 @@ export class OrderDetails {
   quantity: number;
 
   orderType: number;
-  
+
+  id: string;
+
+  completedQuantity: number;
 }

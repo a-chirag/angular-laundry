@@ -37,6 +37,10 @@
       <mat-header-cell *matHeaderCellDef> Quantity </mat-header-cell>
       <mat-cell *matCellDef="let order"> {{order.totalQuantity}} </mat-cell>
     </ng-container>
+  <ng-container matColumnDef="processedQuantity">
+    <mat-header-cell *matHeaderCellDef> Processed</mat-header-cell>
+    <mat-cell *matCellDef="let order"> {{showProcessedQuantity(order)}} </mat-cell>
+  </ng-container>
      <ng-container matColumnDef="amount">
       <mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
       <mat-cell *matCellDef="let order"> {{order.total|number:'1.2-2'}} </mat-cell>

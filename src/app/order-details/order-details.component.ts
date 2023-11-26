@@ -35,6 +35,7 @@ export class OrderDetailsComponent implements OnInit, AfterViewInit {
   displayedColumns = ['clothName',
     'amount',
 'quantity',
+'processedQuantity',
 'orderType'
 ];
 types = [

@@ -15,6 +15,7 @@ export class PendingOrdersComponent implements OnInit, AfterViewInit {
 'submissionDate',
 'expectedDeliveryDate',
 'totalQuantity',
+'processedQuantity',
 'amount',
 'deliveryStatus'];
   types = [
@@ -42,6 +43,13 @@ export class PendingOrdersComponent implements OnInit, AfterViewInit {
   }
 getOrders(): void {
   this.ordersService.getPendingOrders().subscribe(orders => this.dataSource.data = orders);
+}
+showProcessedQuantity(order: Order): number{
+    let q = 0;
+  order.orderDetails.forEach(item => {
+    if (item.clothName !== 'weight') {
+      q+= item.completedQuantity; }});
+  return q;
 }
   changeStatus(status: number,order: Order){
     this.ordersService.changeStatus(status, order.id).subscribe();

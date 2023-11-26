@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "http://dashboard.laundryclub.xyz:9081",
+    "target": "http://dashboard.laundryclub.xyz:8082",
     "secure": false
   },
   "/v1/notificationapi":{

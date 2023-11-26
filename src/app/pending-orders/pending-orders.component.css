@@ -9,6 +9,7 @@
   overflow: auto;
   max-height: 500px;
 }
+
 .mat-header-cell.mat-sort-header-sorted {
   color: black;
 }
@@ -29,5 +30,12 @@
   color: white;
 }
 .mat-column-id {
+  max-width: 96px;
+}
+.mat-column-totalQuantity {
+  max-width: 96px;
+}
+
+.mat-column-processedQuantity {
   max-width: 96px;
 }
