@@ -87,7 +87,7 @@ getClient(): void {
   this.clientService.getClient(this.contactNo).subscribe(client => {this.client = client;
                                                             this.order.clientId = client.clientId;
                                                             this.order.expectedDeliveryDate = new Date();
-                                                            this.order.expectedDeliveryDate.setDate(this.order.expectedDeliveryDate.getDate()+4)});
+                                                            this.order.expectedDeliveryDate.setDate(this.order.expectedDeliveryDate.getDate()+8)});
 }
 
   filter(name: string): Cloth[] {
